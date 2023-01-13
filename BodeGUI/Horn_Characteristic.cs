@@ -13,18 +13,21 @@ namespace BodeGUI
 {
     public class data
     {
-        public double capacitance;
+        public string? Name;
         public double resfreq;
         public double antifreq;
         public double res_impedance;
         public double anti_impedance;
+        public double capacitance;
     }
     public class Horn_Characteristic
     {
         OnePortMeasurement measurement;
         BodeDevice bode;
         ExecutionState state;
-        data horn_data;
+
+        public data horn_data = new data();
+
         public Horn_Characteristic()
         {
             BodeAutomationInterface auto = new BodeAutomation();
@@ -73,11 +76,22 @@ namespace BodeGUI
 
         public void Calibrate()
         {
-
+            void Open()
+            {
+                ExecutionState state = measurement.Calibration.FullRange.ExecuteOpen();
+            }
+            void Short()
+            {
+                ExecutionState state = measurement.Calibration.FullRange.ExecuteShort();
+            }
+            void Load()
+            {
+                ExecutionState state = measurement.Calibration.FullRange.ExecuteLoad();
+            }
         }
-        public void disconnect()
+        public void Disconnect()
         {
-            
+            bode.ShutDown();
         }
     }
 }

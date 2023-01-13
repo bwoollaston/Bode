@@ -5,11 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BodeGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="DarkSlateGray">
+        Title="MainWindow" Height="450" Width="800" Closing="ChildWindow_Closing">
     <Grid>
-        <Button Content="Run" HorizontalAlignment="Left" Height="60" Margin="594,307,0,0" VerticalAlignment="Top" Width="125" Click="Button_Click_Run"/>
-        <Button Content="Calibrate" HorizontalAlignment="Left" Height="60" Margin="75,307,0,0" VerticalAlignment="Top" Width="125" Click="Button_Click_Cal"/>
-        <Label Content="Bode Horn Characteristics" Margin="35,10,-35,-10" FontSize="30" FontWeight="DemiBold"/>
+        <Button Content="Run" HorizontalAlignment="Left" Height="60" Margin="575,307,0,0" VerticalAlignment="Top" Width="125" Click="Button_Click_Run"/>
+        <Button Content="Calibrate" HorizontalAlignment="Left" Height="60" Margin="100,307,0,0" VerticalAlignment="Top" Width="125" Click="Button_Click_Cal"/>
+        <Label Content="Bode Horn Characteristics" Margin="10,11,400,378" FontSize="30" FontWeight="DemiBold"/>
+        <ListView Name="HornData" Margin="100,60,100,150">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Horn" Width="100"/>
+                    <GridViewColumn Header="Capacitance (pF)" Width="100"  DisplayMemberBinding="{Binding capacitance}"/>
+                    <GridViewColumn Header="Res Frequency" Width="100" DisplayMemberBinding="{Binding resfreq}"/>
+                    <GridViewColumn Header="Anti Frequency" Width="100"  DisplayMemberBinding="{Binding antifreq}"/>
+                    <GridViewColumn Header="Impedance" Width="100"  DisplayMemberBinding="{Binding res_impedance}"/>
+                    <GridViewColumn Header="Anti-Impedance" Width="100" DisplayMemberBinding="{Binding anti_impedance}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
+        <Label Content="Horn Name :" Margin="471,28,238,378" FontWeight="Bold"/>
+        <TextBox Name="Text1" TextWrapping="Wrap" Text="" Margin="555,33,100,379" RenderTransformOrigin="0.509,0.546" TextChanged="TextBox_TextChanged"/>
     </Grid>
 </Window>
