@@ -19,26 +19,35 @@ namespace BodeGUI
         public double res_impedance;
         public double anti_impedance;
         public double capacitance;
+        public Data()
+        {
+            Name = "Name";
+            capacitance = 100;
+            resfreq = 180000;
+            antifreq = 190000;
+            res_impedance = 50;
+            anti_impedance = 10000;
+        }
     }
     public class Horn_Characteristic
     {
-        OnePortMeasurement measurement;
-        BodeDevice bode;
-        ExecutionState state;
-        BodeAutomationInterface auto = new BodeAutomation();
+        public OnePortMeasurement measurement;
+        public BodeDevice bode;
+        public ExecutionState state;
+        public BodeAutomationInterface auto = new BodeAutomation();
         public Data horn_data = new();
 
         public Horn_Characteristic()
         {
-            bode = auto.Connect();
+ /*           bode = auto.Connect();
             measurement = bode.Impedance.CreateOnePortMeasurement();
-        }
+ */       }
 
-/*        public void Connect()
+        public void Connect()
         {
             bode = auto.Connect();
             measurement = bode.Impedance.CreateOnePortMeasurement();
-        }*/
+        }
         public void Sweep()
         {
             int sweep_PTS = 201;

@@ -5,15 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BodeGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Closing="ChildWindow_Closing">
+        Title="MainWindow" Height="450" Width="800" Closing="ChildWindow_Closing" Background="#4B4646">
     <Grid>
         <Grid.ColumnDefinitions>
-
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Button Content="Run" HorizontalAlignment="Left" Height="60" Margin="575,307,0,0" VerticalAlignment="Top" Width="125" Click="Button_Click_Run"/>
-        <Button Content="Calibrate" HorizontalAlignment="Center" Height="60" Margin="0,307,0,0" VerticalAlignment="Top" Width="124" Click="Button_Click_Cal" RenderTransformOrigin="2.72,0.638"/>
-        <Label Content="Bode Horn Characteristics" Margin="10,11,400,378" FontSize="30" FontWeight="DemiBold"/>
-        <ListView Name="HornData" Margin="100,60,100,150" ItemsSource="{Binding horn_list}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+        <Button Content="Run" HorizontalAlignment="Stretch" Grid.Column="6" Grid.Row="4" VerticalAlignment="Stretch" Margin="4,4" Click="Button_Click_Run" />
+        <Button Content="Calibrate" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2" Margin="52,4" VerticalAlignment="Stretch" Click="Button_Click_Cal"/>
+        <Label Content="Bode Horn Characteristics" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" FontSize="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" FontWeight="DemiBold" Foreground="LightGray"/>
+        <ListView Name="HornData" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalContentAlignment="Center" ItemsSource="{Binding horn_list}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Horn" Width="100"/>
@@ -26,9 +42,10 @@
             </ListView.View>
         </ListView>
 
-        <Label Content="Horn Name :" Margin="471,28,238,378" FontWeight="Bold"/>
-        <TextBox Name="Text1" TextWrapping="Wrap" Text="" Margin="555,33,100,379" Height="20" Width="140" TextChanged="TextBox_TextChanged"/>
-        <Button Content="Connect" HorizontalAlignment="Left" Margin="100,307,0,0" VerticalAlignment="Top" Height="60" Width="125" Click="Button_Click_Connect"/>
-        <TextBox Name="connectBox" Background="Red" TextAlignment="Center" Text="Connected" Width="120" Margin="102,157,578,0" Height="20"/>
+        <Label Content="Horn Name :" Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="16" Foreground="LightGray"/>
+        <TextBox Name="Text1" TextWrapping="Wrap" Grid.Column="5" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="6" Height="20" Width="140" TextChanged="TextBox_TextChanged"/>
+        <Button Content="Connect" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" Click="Button_Click_Connect" Margin="4,4"/>
+        <TextBox Name="connectBox" Background="Red"  Grid.Column="1" Grid.Row="4" TextAlignment="Center" Text="Connected" VerticalAlignment="Top" Margin="4,0"/>
+        <ProgressBar Name="connectProgress" IsIndeterminate="True" Visibility="Hidden" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" Grid.ColumnSpan="6" Height="20"/>
     </Grid>
 </Window>
