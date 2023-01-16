@@ -19,9 +19,9 @@ namespace BodeGUI
 {
     public partial class MainWindow : Window
     {
-        string txt;
-        Horn_Characteristic horn_Characteristic = new Horn_Characteristic();
-        List<data> horn_list = new List<data>();
+        string txt = "string";
+        public Horn_Characteristic horn_Characteristic = new();
+        public List<Data> horn_list = new();
         public MainWindow()
         {
             InitializeComponent();
@@ -31,7 +31,7 @@ namespace BodeGUI
             txt = Text1.Text;
             horn_Characteristic.horn_data.Name = txt;
             horn_Characteristic.Sweep();
-            horn_list.Add(new data()
+            horn_list.Add(new Data()
             {
                 Name = horn_Characteristic.horn_data.Name,
                 resfreq = horn_Characteristic.horn_data.resfreq,
@@ -40,7 +40,7 @@ namespace BodeGUI
                 anti_impedance = horn_Characteristic.horn_data.anti_impedance,
                 capacitance = horn_Characteristic.horn_data.capacitance
             });
-            HornData.ItemsSource = horn_list;
+            HornData.Items.Add(horn_list);
         }
         private void Button_Click_Cal(object sender, RoutedEventArgs e)
         {
@@ -57,6 +57,12 @@ namespace BodeGUI
             MessageBoxResult result = MessageBox.Show("Allow Shutdown?", "Application Shutdown Sample", MessageBoxButton.YesNo, MessageBoxImage.Question);
             e.Cancel = (result == MessageBoxResult.No);
             horn_Characteristic.Disconnect();
+        }
+
+        private void Button_Click_Connect(object sender, RoutedEventArgs e)
+        {
+          //  horn_Characteristic.Connect();
+            connectBox.Background = new SolidColorBrush(Colors.Green);
         }
     }
 }

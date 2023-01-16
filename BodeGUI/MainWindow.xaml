@@ -7,10 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Closing="ChildWindow_Closing">
     <Grid>
+        <Grid.ColumnDefinitions>
+
+        </Grid.ColumnDefinitions>
         <Button Content="Run" HorizontalAlignment="Left" Height="60" Margin="575,307,0,0" VerticalAlignment="Top" Width="125" Click="Button_Click_Run"/>
-        <Button Content="Calibrate" HorizontalAlignment="Left" Height="60" Margin="100,307,0,0" VerticalAlignment="Top" Width="125" Click="Button_Click_Cal"/>
+        <Button Content="Calibrate" HorizontalAlignment="Center" Height="60" Margin="0,307,0,0" VerticalAlignment="Top" Width="124" Click="Button_Click_Cal" RenderTransformOrigin="2.72,0.638"/>
         <Label Content="Bode Horn Characteristics" Margin="10,11,400,378" FontSize="30" FontWeight="DemiBold"/>
-        <ListView Name="HornData" Margin="100,60,100,150">
+        <ListView Name="HornData" Margin="100,60,100,150" ItemsSource="{Binding horn_list}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Horn" Width="100"/>
@@ -24,6 +27,8 @@
         </ListView>
 
         <Label Content="Horn Name :" Margin="471,28,238,378" FontWeight="Bold"/>
-        <TextBox Name="Text1" TextWrapping="Wrap" Text="" Margin="555,33,100,379" RenderTransformOrigin="0.509,0.546" TextChanged="TextBox_TextChanged"/>
+        <TextBox Name="Text1" TextWrapping="Wrap" Text="" Margin="555,33,100,379" Height="20" Width="140" TextChanged="TextBox_TextChanged"/>
+        <Button Content="Connect" HorizontalAlignment="Left" Margin="100,307,0,0" VerticalAlignment="Top" Height="60" Width="125" Click="Button_Click_Connect"/>
+        <TextBox Name="connectBox" Background="Red" TextAlignment="Center" Text="Connected" Width="120" Margin="102,157,578,0" Height="20"/>
     </Grid>
 </Window>

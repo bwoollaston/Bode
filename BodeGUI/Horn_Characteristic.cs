@@ -11,9 +11,9 @@ using OmicronLab.VectorNetworkAnalysis.AutomationInterface.DataTypes;
 
 namespace BodeGUI
 {
-    public class data
+    public class Data
     {
-        public string? Name;
+        public string Name = "name";
         public double resfreq;
         public double antifreq;
         public double res_impedance;
@@ -25,15 +25,20 @@ namespace BodeGUI
         OnePortMeasurement measurement;
         BodeDevice bode;
         ExecutionState state;
-
-        public data horn_data = new data();
+        BodeAutomationInterface auto = new BodeAutomation();
+        public Data horn_data = new();
 
         public Horn_Characteristic()
         {
-            BodeAutomationInterface auto = new BodeAutomation();
             bode = auto.Connect();
             measurement = bode.Impedance.CreateOnePortMeasurement();
         }
+
+/*        public void Connect()
+        {
+            bode = auto.Connect();
+            measurement = bode.Impedance.CreateOnePortMeasurement();
+        }*/
         public void Sweep()
         {
             int sweep_PTS = 201;
