@@ -13,12 +13,12 @@ namespace BodeGUI
 {
     public class Data
     {
-        public string Name = "name";
-        public double resfreq;
-        public double antifreq;
-        public double res_impedance;
-        public double anti_impedance;
-        public double capacitance;
+        public string Name { get; set; }
+        public double resfreq { get; set; }
+        public double antifreq { get; set; }
+        public double res_impedance  { get; set; }
+        public double anti_impedance { get; set; }
+        public double capacitance { get; set; }
         public Data()
         {
             Name = "Name";

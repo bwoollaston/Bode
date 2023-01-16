@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
-
+using System.Collections.ObjectModel;
 
 namespace BodeGUI
 {
@@ -21,10 +21,11 @@ namespace BodeGUI
     {
         string txt = "string";
         public Horn_Characteristic horn_Characteristic = new();
-        public List<Data> horn_list = new();
+        public ObservableCollection<Data> horn_list = new();
         public MainWindow()
         {
             InitializeComponent();
+
         }
         private void Button_Click_Run(object sender, RoutedEventArgs e)
         {
@@ -40,7 +41,8 @@ namespace BodeGUI
                 anti_impedance = horn_Characteristic.horn_data.anti_impedance,
                 capacitance = horn_Characteristic.horn_data.capacitance
             });
-            HornData.Items.Add(horn_list);
+            HornData.ItemsSource = horn_list;
+
         }
         private void Button_Click_Cal(object sender, RoutedEventArgs e)
         {
