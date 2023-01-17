@@ -61,6 +61,11 @@ namespace BodeGUI
                 bode.ShutDown();
                 return;
             }
+
+            //measurement.Results.CalculateFResQValues(false, true,FResQFormats.Magnitude);
+            //measurement.Results.CalculateFResQValues(true, true, FResQFormats.Magnitude);
+            //horn_data.Resfreq = measurement.Resul
+
             double[] freq = measurement.Results.MeasurementFrequencies;
             double[] impedance = measurement.Results.Magnitude(MagnitudeUnit.Lin);
             horn_data.Res_impedance = impedance[0];
@@ -78,12 +83,13 @@ namespace BodeGUI
                     horn_data.Antifreq = freq[i];
                 }
             }
-            measurement.ConfigureSinglePoint(1000);
+            measurement.ConfigureSweep(1000, 1001, 2, SweepMode.Linear);
             if (state != ExecutionState.Ok)
             {
                 bode.ShutDown();
                 return;
             }
+
             double[] cap = measurement.Results.Cs();
             horn_data.Capacitance = cap[0];
         }
