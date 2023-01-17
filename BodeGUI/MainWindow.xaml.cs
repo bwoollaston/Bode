@@ -31,7 +31,7 @@ namespace BodeGUI
         {
             txt = Text1.Text;
             horn_Characteristic.horn_data.Name = txt;
-            //horn_Characteristic.Sweep();
+            horn_Characteristic.Sweep();
             horn_list.Add(new Data()
             {
                 Name = horn_Characteristic.horn_data.Name,
@@ -64,9 +64,18 @@ namespace BodeGUI
         private void Button_Click_Connect(object sender, RoutedEventArgs e)
         {
             connectProgress.Visibility = Visibility.Visible;
-            horn_Characteristic.Connect();
-            connectProgress.Visibility = Visibility.Hidden;
-            connectBox.Background = new SolidColorBrush(Colors.Green);
+            try
+            {
+                horn_Characteristic.Connect(); 
+                connectProgress.Visibility = Visibility.Hidden;
+                connectBox.Background = new SolidColorBrush(Colors.Green);
+            }
+            catch(Exception ex)
+            {
+                connectProgress.Visibility = Visibility.Hidden;
+                MessageBox.Show("Bode not Connected", "Exception Sample", MessageBoxButton.OK);
+            }
+
         }
     }
 }

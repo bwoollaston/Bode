@@ -29,7 +29,7 @@
         <Button Content="Run" HorizontalAlignment="Stretch" Grid.Column="6" Grid.Row="4" VerticalAlignment="Stretch" Margin="4,4" Click="Button_Click_Run" />
         <Button Content="Calibrate" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2" Margin="52,4" VerticalAlignment="Stretch" Click="Button_Click_Cal"/>
         <Label Content="Bode Horn Characteristics" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" FontSize="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" FontWeight="DemiBold" Foreground="LightGray"/>
-        <ListView Name="HornData" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+        <ListView Name="HornData" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalContentAlignment="Center"  >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Horn" Width="100" DisplayMemberBinding="{Binding Name}"/>

@@ -39,9 +39,8 @@ namespace BodeGUI
 
         public Horn_Characteristic()
         {
- /*           bode = auto.Connect();
-            measurement = bode.Impedance.CreateOnePortMeasurement();
- */       }
+
+        }
 
         public void Connect()
         {
@@ -61,37 +60,32 @@ namespace BodeGUI
                 bode.ShutDown();
                 return;
             }
-
-            //measurement.Results.CalculateFResQValues(false, true,FResQFormats.Magnitude);
-            //measurement.Results.CalculateFResQValues(true, true, FResQFormats.Magnitude);
-            //horn_data.Resfreq = measurement.Resul
-
             double[] freq = measurement.Results.MeasurementFrequencies;
             double[] impedance = measurement.Results.Magnitude(MagnitudeUnit.Lin);
-            horn_data.Res_impedance = impedance[0];
-            horn_data.Anti_impedance = impedance[0];
-            for(int i = 0; i < impedance.Length;i++)
+            horn_data.Resfreq = measurement.Results.CalculateFResQValues(false, true, FResQFormats.Magnitude).ResonanceFrequency;
+            horn_data.Antifreq = measurement.Results.CalculateFResQValues(true, true, FResQFormats.Magnitude).ResonanceFrequency;
+            
+            for(int i = 0; i < freq.Length; i++)
             {
-                if (impedance[i] < horn_data.Res_impedance)
+                if(freq[i] < horn_data.Resfreq && freq[i+1] >= horn_data.Resfreq)
                 {
                     horn_data.Res_impedance = impedance[i];
-                    horn_data.Resfreq = freq[i];
                 }
-                if (impedance[i] > horn_data.Anti_impedance)
+                if (freq[i] < horn_data.Antifreq && freq[i + 1] >= horn_data.Antifreq)
                 {
                     horn_data.Anti_impedance = impedance[i];
-                    horn_data.Antifreq = freq[i];
                 }
             }
+
             measurement.ConfigureSweep(1000, 1001, 2, SweepMode.Linear);
             if (state != ExecutionState.Ok)
             {
                 bode.ShutDown();
                 return;
             }
-
-            double[] cap = measurement.Results.Cs();
-            horn_data.Capacitance = cap[0];
+            freq = measurement.Results.MeasurementFrequencies;
+            horn_data.Capacitance = measurement.Results.CsAt(0);
+            
         }
 
         public void Calibrate()
