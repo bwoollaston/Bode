@@ -37,7 +37,7 @@
                     <GridViewColumn Header="Res Frequency (kHz)" Width="120" DisplayMemberBinding="{Binding Resfreq}"/>
                     <GridViewColumn Header="Anti Frequency (kHz)" Width="120"  DisplayMemberBinding="{Binding Antifreq}"/>
                     <GridViewColumn Header="Impedance" Width="120"  DisplayMemberBinding="{Binding Res_impedance}"/>
-                    <GridViewColumn Header="Anti-Impedance" Width="120" DisplayMemberBinding="{Binding Anti_impedance}"/>
+                    <GridViewColumn Header="Anti-Impedance (kΩ)" Width="120" DisplayMemberBinding="{Binding Anti_impedance}"/>
                 </GridView>
             </ListView.View>
         </ListView>
