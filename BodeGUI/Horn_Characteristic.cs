@@ -76,8 +76,8 @@ namespace BodeGUI
                     horn_data.Anti_impedance = impedance[i];
                 }
             }
-            horn_data.Resfreq = horn_data.Resfreq / 1000.0;
-            horn_data.Antifreq = horn_data.Antifreq / 1000.0;
+            horn_data.Resfreq = Math.Round(horn_data.Resfreq / 1000.0 , 3 ,MidpointRounding.AwayFromZero);
+            horn_data.Antifreq = Math.Round(horn_data.Antifreq / 1000.0, 3 , MidpointRounding.AwayFromZero);
             //measurement.ConfigureSweep(1000,1201, 201, SweepMode.Linear);
             //if (state != ExecutionState.Ok)
             //{
