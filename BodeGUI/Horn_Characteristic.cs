@@ -22,11 +22,11 @@ namespace BodeGUI
         public Data()
         {
             Name = "Name";
-            Capacitance = 100;
-            Resfreq = 180000;
-            Antifreq = 190000;
-            Res_impedance = 50;
-            Anti_impedance = 10000;
+            Capacitance = 0;
+            Resfreq = 0;
+            Antifreq = 0;
+            Res_impedance = 0;
+            Anti_impedance = 0;
         }
     }
     public class Horn_Characteristic
@@ -76,15 +76,16 @@ namespace BodeGUI
                     horn_data.Anti_impedance = impedance[i];
                 }
             }
-
-            measurement.ConfigureSweep(1000, 1001, 2, SweepMode.Linear);
-            if (state != ExecutionState.Ok)
-            {
-                bode.ShutDown();
-                return;
-            }
-            freq = measurement.Results.MeasurementFrequencies;
-            horn_data.Capacitance = measurement.Results.CsAt(0);
+            horn_data.Resfreq = horn_data.Resfreq / 1000.0;
+            horn_data.Antifreq = horn_data.Antifreq / 1000.0;
+            //measurement.ConfigureSweep(1000,1201, 201, SweepMode.Linear);
+            //if (state != ExecutionState.Ok)
+            //{
+            //    bode.ShutDown();
+            //    return;
+            //}
+            ////freq = measurement.Results.MeasurementFrequencies;
+            ////horn_data.Capacitance = measurement.Results.CsAt(0);
             
         }
 

@@ -29,15 +29,15 @@
         <Button Content="Run" HorizontalAlignment="Stretch" Grid.Column="6" Grid.Row="4" VerticalAlignment="Stretch" Margin="4,4" Click="Button_Click_Run" />
         <Button Content="Calibrate" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2" Margin="52,4" VerticalAlignment="Stretch" Click="Button_Click_Cal"/>
         <Label Content="Bode Horn Characteristics" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" FontSize="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" FontWeight="DemiBold" Foreground="LightGray"/>
-        <ListView Name="HornData" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalContentAlignment="Center"  >
+        <ListView Name="HornData" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="8" Grid.RowSpan="3" Margin="40,0" VerticalAlignment="Center" HorizontalContentAlignment="Center"  >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Horn" Width="100" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Capacitance (pF)" Width="100"   DisplayMemberBinding="{Binding Path=capacitance}"/>
-                    <GridViewColumn Header="Res Frequency" Width="100" DisplayMemberBinding="{Binding resfreq}"/>
-                    <GridViewColumn Header="Anti Frequency" Width="100"  DisplayMemberBinding="{Binding antifreq}"/>
-                    <GridViewColumn Header="Impedance" Width="100"  DisplayMemberBinding="{Binding res_impedance}"/>
-                    <GridViewColumn Header="Anti-Impedance" Width="100" DisplayMemberBinding="{Binding anti_impedance}"/>
+                    <GridViewColumn Header="Capacitance (pF)" Width="120"   DisplayMemberBinding="{Binding Path=Capacitance}"/>
+                    <GridViewColumn Header="Res Frequency (kHz)" Width="120" DisplayMemberBinding="{Binding Resfreq}"/>
+                    <GridViewColumn Header="Anti Frequency (kHz)" Width="120"  DisplayMemberBinding="{Binding Antifreq}"/>
+                    <GridViewColumn Header="Impedance" Width="120"  DisplayMemberBinding="{Binding Res_impedance}"/>
+                    <GridViewColumn Header="Anti-Impedance" Width="120" DisplayMemberBinding="{Binding Anti_impedance}"/>
                 </GridView>
             </ListView.View>
         </ListView>

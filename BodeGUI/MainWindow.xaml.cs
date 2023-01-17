@@ -58,7 +58,14 @@ namespace BodeGUI
             Console.WriteLine("Closing");
             MessageBoxResult result = MessageBox.Show("Allow Shutdown?", "Application Shutdown Sample", MessageBoxButton.YesNo, MessageBoxImage.Question);
             e.Cancel = (result == MessageBoxResult.No);
-            horn_Characteristic.Disconnect();
+            try
+            {
+                horn_Characteristic.Disconnect();
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
 
         private void Button_Click_Connect(object sender, RoutedEventArgs e)
