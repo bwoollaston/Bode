@@ -35,11 +35,11 @@ namespace BodeGUI
             horn_list.Add(new Data()
             {
                 Name = horn_Characteristic.horn_data.Name,
-                resfreq = horn_Characteristic.horn_data.resfreq,
-                antifreq = horn_Characteristic.horn_data.antifreq,
-                res_impedance = horn_Characteristic.horn_data.res_impedance,
-                anti_impedance = horn_Characteristic.horn_data.anti_impedance,
-                capacitance = horn_Characteristic.horn_data.capacitance
+                Resfreq = horn_Characteristic.horn_data.Resfreq,
+                Antifreq = horn_Characteristic.horn_data.Antifreq,
+                Res_impedance = horn_Characteristic.horn_data.Res_impedance,
+                Anti_impedance = horn_Characteristic.horn_data.Anti_impedance,
+                Capacitance = horn_Characteristic.horn_data.Capacitance
             });
             HornData.ItemsSource = horn_list;
 

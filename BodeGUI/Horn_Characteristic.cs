@@ -14,19 +14,19 @@ namespace BodeGUI
     public class Data
     {
         public string Name { get; set; }
-        public double resfreq { get; set; }
-        public double antifreq { get; set; }
-        public double res_impedance  { get; set; }
-        public double anti_impedance { get; set; }
-        public double capacitance { get; set; }
+        public double Resfreq { get; set; }
+        public double Antifreq { get; set; }
+        public double Res_impedance  { get; set; }
+        public double Anti_impedance { get; set; }
+        public double Capacitance { get; set; }
         public Data()
         {
             Name = "Name";
-            capacitance = 100;
-            resfreq = 180000;
-            antifreq = 190000;
-            res_impedance = 50;
-            anti_impedance = 10000;
+            Capacitance = 100;
+            Resfreq = 180000;
+            Antifreq = 190000;
+            Res_impedance = 50;
+            Anti_impedance = 10000;
         }
     }
     public class Horn_Characteristic
@@ -63,19 +63,19 @@ namespace BodeGUI
             }
             double[] freq = measurement.Results.MeasurementFrequencies;
             double[] impedance = measurement.Results.Magnitude(MagnitudeUnit.Lin);
-            horn_data.res_impedance = impedance[0];
-            horn_data.anti_impedance = impedance[0];
+            horn_data.Res_impedance = impedance[0];
+            horn_data.Anti_impedance = impedance[0];
             for(int i = 0; i < impedance.Length;i++)
             {
-                if (impedance[i] < horn_data.res_impedance)
+                if (impedance[i] < horn_data.Res_impedance)
                 {
-                    horn_data.res_impedance = impedance[i];
-                    horn_data.resfreq = freq[i];
+                    horn_data.Res_impedance = impedance[i];
+                    horn_data.Resfreq = freq[i];
                 }
-                if (impedance[i] > horn_data.anti_impedance)
+                if (impedance[i] > horn_data.Anti_impedance)
                 {
-                    horn_data.anti_impedance = impedance[i];
-                    horn_data.antifreq = freq[i];
+                    horn_data.Anti_impedance = impedance[i];
+                    horn_data.Antifreq = freq[i];
                 }
             }
             measurement.ConfigureSinglePoint(1000);
@@ -85,7 +85,7 @@ namespace BodeGUI
                 return;
             }
             double[] cap = measurement.Results.Cs();
-            horn_data.capacitance = cap[0];
+            horn_data.Capacitance = cap[0];
         }
 
         public void Calibrate()
