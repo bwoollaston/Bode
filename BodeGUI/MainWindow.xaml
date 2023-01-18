@@ -47,5 +47,18 @@
         <Button Content="Connect" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" Click="Button_Click_Connect" Margin="4,4"/>
         <TextBox Name="connectBox" Background="Red"  Grid.Column="1" Grid.Row="4" TextAlignment="Center" Text="Connected" VerticalAlignment="Top" Margin="4,0"/>
         <ProgressBar Name="connectProgress" IsIndeterminate="True" Visibility="Hidden" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" Grid.ColumnSpan="6" Height="20"/>
+        <Label Content="Open" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="6,0" FontWeight="Bold" Foreground="DarkGray"/>
+        <Label Content="Short" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="6,0" FontWeight="Bold" Foreground="DarkGray"/>
+        <Label Content="Load" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="6,0" FontWeight="Bold" Foreground="DarkGray"/>
+        <TextBox Name="openBox" Background="Red"  Grid.Column="5" Grid.Row="4" TextAlignment="Center" Text="Ready" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,4"/>
+        <TextBox Name="shortBox" Background="Red"  Grid.Column="5" Grid.Row="4" TextAlignment="Center" Text="Ready" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,4"/>
+        <TextBox Name="loadBox" Background="Red"  Grid.Column="5" Grid.Row="4" TextAlignment="Center" Text="Ready" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,4"/>
+        <TextBox Name="calInstruct" Background="Transparent" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="8" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,4" Visibility="Collapsed">
+            <TextBox.FontSize>20</TextBox.FontSize>
+            <TextBox.Foreground>Red</TextBox.Foreground>
+            <TextBox.FontWeight>Bold</TextBox.FontWeight>
+            <TextBox.Text>Click Calibrate when ready to perform the open test</TextBox.Text>
+        </TextBox>
+        <TextBox Name="calibrateBox" Background="Red"  Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2" TextAlignment="Center" Text="Calibrated" VerticalAlignment="Top" Margin="52,0"/>
     </Grid>
 </Window>

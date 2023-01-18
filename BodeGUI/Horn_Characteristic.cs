@@ -11,6 +11,7 @@ using OmicronLab.VectorNetworkAnalysis.AutomationInterface.DataTypes;
 
 namespace BodeGUI
 {
+
     public class Data
     {
         public string Name { get; set; }
@@ -92,21 +93,21 @@ namespace BodeGUI
 
         }
 
-        public void Calibrate()
+        public void Open()
         {
-            void Open()
-            {
-                ExecutionState state = measurement.Calibration.FullRange.ExecuteOpen();
-            }
-            void Short()
-            {
-                ExecutionState state = measurement.Calibration.FullRange.ExecuteShort();
-            }
-            void Load()
-            {
-                ExecutionState state = measurement.Calibration.FullRange.ExecuteLoad();
-            }
+            ExecutionState state = measurement.Calibration.FullRange.ExecuteOpen();
         }
+
+        public void Short()
+        {
+            ExecutionState state = measurement.Calibration.FullRange.ExecuteShort();
+        }
+
+        public void Load()
+        {
+           ExecutionState state = measurement.Calibration.FullRange.ExecuteLoad();
+        }
+
         public void Disconnect()
         {
             bode.ShutDown();
