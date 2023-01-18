@@ -80,15 +80,16 @@ namespace BodeGUI
             horn_data.Antifreq = Math.Round(horn_data.Antifreq / 1000.0, 3 , MidpointRounding.AwayFromZero);
             horn_data.Res_impedance = Math.Round(horn_data.Res_impedance, 3, MidpointRounding.AwayFromZero);
             horn_data.Anti_impedance = Math.Round(horn_data.Anti_impedance / 1000.0, 3, MidpointRounding.AwayFromZero);
-            //measurement.ConfigureSweep(1000,1201, 201, SweepMode.Linear);
-            //if (state != ExecutionState.Ok)
-            //{
-            //    bode.ShutDown();
-            //    return;
-            //}
-            ////freq = measurement.Results.MeasurementFrequencies;
-            ////horn_data.Capacitance = measurement.Results.CsAt(0);
-            
+            measurement.ConfigureSweep(1000, 1201, 51, SweepMode.Logarithmic);
+            if (state != ExecutionState.Ok)
+            {
+                bode.ShutDown();
+                return;
+            }
+            freq = measurement.Results.MeasurementFrequencies;
+            double[] cap = measurement.Results.Cs();
+            horn_data.Capacitance = cap[0];
+
         }
 
         public void Calibrate()
