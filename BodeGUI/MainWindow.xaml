@@ -53,12 +53,14 @@
         <TextBox Name="openBox" Background="Red"  Grid.Column="5" Grid.Row="4" TextAlignment="Center" Text="Ready" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,4"/>
         <TextBox Name="shortBox" Background="Red"  Grid.Column="5" Grid.Row="4" TextAlignment="Center" Text="Ready" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,4"/>
         <TextBox Name="loadBox" Background="Red"  Grid.Column="5" Grid.Row="4" TextAlignment="Center" Text="Ready" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,4"/>
-        <TextBox Name="calInstruct" Background="Transparent" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="8" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,4" Visibility="Collapsed">
+        <TextBox Name="calInstruct" Background="Transparent" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="8" BorderBrush="Transparent" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,4" Visibility="Collapsed">
             <TextBox.FontSize>20</TextBox.FontSize>
-            <TextBox.Foreground>Red</TextBox.Foreground>
             <TextBox.FontWeight>Bold</TextBox.FontWeight>
             <TextBox.Text>Click Calibrate when ready to perform the open test</TextBox.Text>
         </TextBox>
         <TextBox Name="calibrateBox" Background="Red"  Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2" TextAlignment="Center" Text="Calibrated" VerticalAlignment="Top" Margin="52,0"/>
+        <Button Name="testButton" Content="  Test  " Grid.Column="3" Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Right" Click="click_testButton" Margin="6,1"/>
+        <TextBox Name="testBox" Text ="    Ω" Grid.Column="4" Grid.Row="5" TextAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="6,2"/>
+        <Button Name="Export" Content="Export to excel" Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,5"/>
     </Grid>
 </Window>

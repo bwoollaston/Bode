@@ -20,6 +20,8 @@ namespace BodeGUI
         public double Res_impedance  { get; set; }
         public double Anti_impedance { get; set; }
         public double Capacitance { get; set; }
+        public double Resistance { get; set; }
+
         public Data()
         {
             Name = "Name";
@@ -88,8 +90,8 @@ namespace BodeGUI
                 return;
             }
             freq = measurement.Results.MeasurementFrequencies;
-            double[] cap = measurement.Results.Cs();
-            horn_data.Capacitance = cap[0];
+            //double[] cap = measurement.Results.Cs();
+            //horn_data.Capacitance = cap[0];
 
         }
 
@@ -106,6 +108,18 @@ namespace BodeGUI
         public void Load()
         {
            ExecutionState state = measurement.Calibration.FullRange.ExecuteLoad();
+        }
+
+        public void TestCal()
+        {
+            measurement.ConfigureSinglePoint(1000);
+            state = measurement.ExecuteMeasurement();
+            if (state != ExecutionState.Ok)
+            {
+                bode.ShutDown();
+                return;
+            }
+            horn_data.Resistance = measurement.Results.MagnitudeAt(0,MagnitudeUnit.Lin);
         }
 
         public void Disconnect()

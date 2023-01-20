@@ -33,7 +33,7 @@ namespace BodeGUI
         {
             txt = Text1.Text;
             horn_Characteristic.horn_data.Name = txt;
-            //horn_Characteristic.Sweep();
+            horn_Characteristic.Sweep();
             horn_list.Add(new Data()
             {
                 Name = horn_Characteristic.horn_data.Name,
@@ -53,7 +53,7 @@ namespace BodeGUI
                 openBox.Background = new SolidColorBrush(Colors.Red);
                 shortBox.Background = new SolidColorBrush(Colors.Red);
                 loadBox.Background = new SolidColorBrush(Colors.Red);
-                calibrateBox.Foreground = new SolidColorBrush(Colors.Red);
+                calibrateBox.Background = new SolidColorBrush(Colors.Red);
                 calInstruct.Visibility = Visibility.Visible;
                 clk += 1;
             }
@@ -61,7 +61,7 @@ namespace BodeGUI
             {
                 try
                 {
-                    //horn_Characteristic.Open();
+                    horn_Characteristic.Open();
                     openBox.Background = new SolidColorBrush(Colors.Green);
                     calInstruct.Text = "Click Calibrate when ready to perform the short test";
                     clk += 1;
@@ -75,7 +75,7 @@ namespace BodeGUI
             {
                 try
                 {
-                    //horn_Characteristic.Short();
+                    horn_Characteristic.Short();
                     shortBox.Background = new SolidColorBrush(Colors.Green);
                     calInstruct.Text = "Click Calibrate when ready to perform the load test";
                     clk += 1;
@@ -89,11 +89,11 @@ namespace BodeGUI
             {
                 try
                 {
-                    //horn_Characteristic.Load();
+                    horn_Characteristic.Load();
                     loadBox.Background = new SolidColorBrush(Colors.Green);
                     calInstruct.Text = "Click Calibrate when ready to perform the open test";
                     calInstruct.Visibility = Visibility.Collapsed;
-                    calibrateBox.Foreground = new SolidColorBrush(Colors.Green);
+                    calibrateBox.Background = new SolidColorBrush(Colors.Green);
                     clk = 0;
                 }
                 catch (Exception ex)
@@ -137,6 +137,13 @@ namespace BodeGUI
                 MessageBox.Show("Bode not Connected", "Exception Sample", MessageBoxButton.OK);
             }
 
+        }
+
+        private void click_testButton(object sender, RoutedEventArgs e)
+        {
+            horn_Characteristic.TestCal();
+            double resistance = horn_Characteristic.horn_data.Resistance;
+            testBox.Text = resistance.ToString("000.0")+ " Ω";
         }
     }
 }
