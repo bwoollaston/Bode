@@ -37,7 +37,7 @@ namespace BodeGUI
         {
             txt = Text1.Text;
             horn_Characteristic.horn_data.Name = txt;
-            horn_Characteristic.Sweep();
+            //horn_Characteristic.Sweep();
             horn_list.Add(new Data()
             {
                 Name = horn_Characteristic.horn_data.Name,
@@ -122,7 +122,7 @@ namespace BodeGUI
             }
             catch(Exception ex)
             {
-
+                
             }
         }
 
@@ -152,10 +152,11 @@ namespace BodeGUI
 
         private void Export_Click(object sender, RoutedEventArgs e)
         {
-            fileName = fileBox.Text;
+            fileName = fileBox.Text + ".csv";
+            
             try
             {
-                using (var writer = new StreamWriter(fileName + ".csv"))
+                using (var writer = new StreamWriter("C:\\Users\\BrodyWoollaston\\Documents\\" + fileName))
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                 {
                     csv.WriteRecords(horn_list);

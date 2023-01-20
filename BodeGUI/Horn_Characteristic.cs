@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Sockets;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -110,7 +111,13 @@ namespace BodeGUI
 
         public void Load()
         {
-           ExecutionState state = measurement.Calibration.FullRange.ExecuteLoad();
+            //var visaSession = new TcpipSocket(measurement.PortExtension);
+            //visaSession.RawIO.Write(":CALC:PAR:DEF OnePort\n");
+            //visaSession.RawIO.Write(":SENS:CORR:LOAD 100Ohm\n");
+            //visaSession.RawIO.Write(":SENS:CORR:FULL:LOAD\n");
+            //visaSession.RawIO.Write("*OPC?*\n");
+            //visaSession.RawIO.ReadString();
+            ExecutionState state = measurement.Calibration.FullRange.ExecuteLoad();
         }
 
         public void TestCal()
@@ -127,7 +134,7 @@ namespace BodeGUI
 
         public void Disconnect()
         {
-            bode.ShutDown();
+            if(bode != null) bode.ShutDown();
         }
     }
 }
