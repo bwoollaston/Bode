@@ -43,7 +43,9 @@
         </ListView>
 
         <Label Content="Horn Name :" Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="16" Foreground="LightGray"/>
+        <Label Content="File Name :" Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" FontWeight="Bold" FontSize="16" Foreground="LightGray" Margin="12,0,0,0"/>
         <TextBox Name="Text1" TextWrapping="Wrap" Grid.Column="5" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="6" Height="20" Width="140" TextChanged="TextBox_TextChanged"/>
+        <TextBox Name="fileBox" TextWrapping="Wrap" Grid.Column="5" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="6" Height="20" Width="140" TextChanged="TextBox_TextChanged"/>
         <Button Content="Connect" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" Click="Button_Click_Connect" Margin="4,4"/>
         <TextBox Name="connectBox" Background="Red"  Grid.Column="1" Grid.Row="4" TextAlignment="Center" Text="Connected" VerticalAlignment="Top" Margin="4,0"/>
         <ProgressBar Name="connectProgress" IsIndeterminate="True" Visibility="Hidden" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" Grid.ColumnSpan="6" Height="20"/>
@@ -61,6 +63,6 @@
         <TextBox Name="calibrateBox" Background="Red"  Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2" TextAlignment="Center" Text="Calibrated" VerticalAlignment="Top" Margin="52,0"/>
         <Button Name="testButton" Content="  Test  " Grid.Column="3" Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Right" Click="click_testButton" Margin="6,1"/>
         <TextBox Name="testBox" Text ="    Ω" Grid.Column="4" Grid.Row="5" TextAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="6,2"/>
-        <Button Name="Export" Content="Export to excel" Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,5"/>
+        <Button Name="Export" Content="Export to CSV" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,0,0,0" Click="Export_Click"/>
     </Grid>
 </Window>

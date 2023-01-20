@@ -83,6 +83,7 @@ namespace BodeGUI
             horn_data.Antifreq = Math.Round(horn_data.Antifreq / 1000.0, 3 , MidpointRounding.AwayFromZero);
             horn_data.Res_impedance = Math.Round(horn_data.Res_impedance, 3, MidpointRounding.AwayFromZero);
             horn_data.Anti_impedance = Math.Round(horn_data.Anti_impedance / 1000.0, 3, MidpointRounding.AwayFromZero);
+
             measurement.ConfigureSweep(1000, 1201, 51, SweepMode.Logarithmic);
             if (state != ExecutionState.Ok)
             {
@@ -90,8 +91,12 @@ namespace BodeGUI
                 return;
             }
             freq = measurement.Results.MeasurementFrequencies;
-            //double[] cap = measurement.Results.Cs();
-            //horn_data.Capacitance = cap[0];
+            List<double> cap = new List<double>();
+            foreach(var a in measurement.Results.Cs())
+            {
+                cap.Add(a);
+            }
+            horn_data.Capacitance = cap[0];
 
         }
 

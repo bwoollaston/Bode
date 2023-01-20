@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,12 +16,15 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using CsvHelper;
+using System.Globalization;
 
 namespace BodeGUI
 {
     public partial class MainWindow : Window
     {
         string txt = "string";
+        string fileName = "";
         int clk = 0;
         public Horn_Characteristic horn_Characteristic = new();
         public ObservableCollection<Data> horn_list = new();
@@ -144,6 +148,24 @@ namespace BodeGUI
             horn_Characteristic.TestCal();
             double resistance = horn_Characteristic.horn_data.Resistance;
             testBox.Text = resistance.ToString("000.0")+ " Ω";
+        }
+
+        private void Export_Click(object sender, RoutedEventArgs e)
+        {
+            fileName = fileBox.Text;
+            try
+            {
+                using (var writer = new StreamWriter(fileName + ".csv"))
+                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
+                    csv.WriteRecords(horn_list);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Unable to write csv", "Exception Sample", MessageBoxButton.OK);
+            }
+
         }
     }
 }
