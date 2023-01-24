@@ -12,7 +12,15 @@ using OmicronLab.VectorNetworkAnalysis.AutomationInterface.DataTypes;
 
 namespace BodeGUI
 {
-
+    public class Function
+    {
+        public double inter(double x, double x1, double x2, double y1, double y2)
+        {
+            double y;
+            y = y1 + (x-x1) * ((y2-y1)/(x2-x1));
+            return (y);
+        }
+    }
     public class Data
     {
         public string Name { get; set; }
@@ -56,6 +64,7 @@ namespace BodeGUI
             int sweep_PTS = 201;
             double sweep_LOW = 180000;
             double sweep_HIGH = 190000;
+            Function function = new Function();
             measurement.ConfigureSweep(sweep_LOW, sweep_HIGH, sweep_PTS, SweepMode.Logarithmic);
             state = measurement.ExecuteMeasurement();
 
@@ -73,11 +82,11 @@ namespace BodeGUI
             {
                 if(freq[i] < horn_data.Resfreq && freq[i+1] >= horn_data.Resfreq)
                 {
-                    horn_data.Res_impedance = impedance[i];
+                    horn_data.Res_impedance = function.inter(horn_data.Resfreq, freq[i], freq[i + 1], impedance[i], impedance[i + 1]);
                 }
                 if (freq[i] < horn_data.Antifreq && freq[i + 1] >= horn_data.Antifreq)
                 {
-                    horn_data.Anti_impedance = impedance[i];
+                    horn_data.Anti_impedance = function.inter(horn_data.Antifreq, freq[i], freq[i + 1], impedance[i], impedance[i + 1]);
                 }
             }
             horn_data.Resfreq = Math.Round(horn_data.Resfreq / 1000.0 , 3 ,MidpointRounding.AwayFromZero);
