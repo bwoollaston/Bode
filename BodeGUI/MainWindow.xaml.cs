@@ -37,7 +37,15 @@ namespace BodeGUI
         {
             txt = Text1.Text;
             horn_Characteristic.horn_data.Name = txt;
-            //horn_Characteristic.Sweep();
+
+            try
+            {
+                horn_Characteristic.Sweep();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Bode not connected", "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             horn_list.Add(new Data()
             {
                 Name = horn_Characteristic.horn_data.Name,
@@ -116,14 +124,7 @@ namespace BodeGUI
             Console.WriteLine("Closing");
             MessageBoxResult result = MessageBox.Show("Allow Shutdown?", "Application Shutdown Sample", MessageBoxButton.YesNo, MessageBoxImage.Question);
             e.Cancel = (result == MessageBoxResult.No);
-            try
-            {
-                horn_Characteristic.Disconnect();
-            }
-            catch(Exception ex)
-            {
-                
-            }
+            horn_Characteristic.Disconnect();
         }
 
         private void Button_Click_Connect(object sender, RoutedEventArgs e)
