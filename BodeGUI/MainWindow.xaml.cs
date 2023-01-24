@@ -146,18 +146,33 @@ namespace BodeGUI
 
         private void click_testButton(object sender, RoutedEventArgs e)
         {
-            horn_Characteristic.TestCal();
-            double resistance = horn_Characteristic.horn_data.Resistance;
-            testBox.Text = resistance.ToString("000.0")+ " Ω";
-        }
-
-        private void Export_Click(object sender, RoutedEventArgs e)
-        {
-            fileName = fileBox.Text + ".csv";
-            
             try
             {
-                using (var writer = new StreamWriter("C:\\Users\\BrodyWoollaston\\Documents\\" + fileName))
+                horn_Characteristic.TestCal();
+                double resistance = horn_Characteristic.horn_data.Resistance;
+                testBox.Text = resistance.ToString("000.0") + " Ω";
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("No Bode connected", "Exception Sample", MessageBoxButton.OK);
+            }
+
+        }
+
+        private void Export_Click(object sender, RoutedEventArgs e) //Exports data form horn_list to desktop directory bodeData
+        {
+            fileName = fileBox.Text + ".csv";
+            try
+            {
+                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                filePath = filePath+"\\bodeData";
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+                fileName = System.IO.Path.Combine(filePath,fileName);
+                
+                using (var writer = new StreamWriter(fileName))
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                 {
                     csv.WriteRecords(horn_list);

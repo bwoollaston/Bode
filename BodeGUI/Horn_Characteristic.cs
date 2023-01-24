@@ -122,6 +122,7 @@ namespace BodeGUI
 
         public void TestCal()
         {
+
             measurement.ConfigureSinglePoint(1000);
             state = measurement.ExecuteMeasurement();
             if (state != ExecutionState.Ok)
