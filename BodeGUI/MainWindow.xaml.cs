@@ -33,6 +33,8 @@ namespace BodeGUI
             InitializeComponent();
 
         }
+
+        /* Runs frequency sweep and presents data in form of a table */
         private void Button_Click_Run(object sender, RoutedEventArgs e)
         {
             txt = Text1.Text;
@@ -58,6 +60,8 @@ namespace BodeGUI
             HornData.ItemsSource = horn_list;
 
         }
+
+        /* Button click initializes the calibration process, iterates through the 3 cal steps and returns to original state */
         private void Button_Click_Cal(object sender, RoutedEventArgs e)
         {
             if(clk == 0)
@@ -89,7 +93,7 @@ namespace BodeGUI
                 {
                     horn_Characteristic.Short();
                     shortBox.Background = new SolidColorBrush(Colors.Green);
-                    calInstruct.Text = "Click Calibrate when ready to perform the load test";
+                    calInstruct.Text = "Click Calibrate when ready to perform the load test with 50Ω test load";
                     clk += 1;
                 }
                 catch (Exception ex)
@@ -119,6 +123,7 @@ namespace BodeGUI
         {
 
         }
+        /* When exiting window promts user before disconnecting the bode device */
         void ChildWindow_Closing(object sender, CancelEventArgs e)
         {
             Console.WriteLine("Closing");
@@ -127,6 +132,7 @@ namespace BodeGUI
             horn_Characteristic.Disconnect();
         }
 
+        /* Searches for and connects to first availible bode100 else presents error */
         private void Button_Click_Connect(object sender, RoutedEventArgs e)
         {
             connectProgress.Visibility = Visibility.Visible;
@@ -144,6 +150,7 @@ namespace BodeGUI
 
         }
 
+        /* When checking caliration selecting test button returns the magnitude of impeadance and presents on screen */
         private void click_testButton(object sender, RoutedEventArgs e)
         {
             try
@@ -159,7 +166,8 @@ namespace BodeGUI
 
         }
 
-        private void Export_Click(object sender, RoutedEventArgs e) //Exports data form horn_list to desktop directory bodeData
+        /* Exports data form horn_list to desktop directory named "bodeData" */
+        private void Export_Click(object sender, RoutedEventArgs e)
         {
             fileName = fileBox.Text + ".csv";
             try

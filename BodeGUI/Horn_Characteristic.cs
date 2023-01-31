@@ -14,6 +14,7 @@ namespace BodeGUI
 {
     public class Function
     {
+        /* Linear interpolation */
         public double inter(double x, double x1, double x2, double y1, double y2)
         {
             double y;
@@ -21,6 +22,8 @@ namespace BodeGUI
             return (y);
         }
     }
+
+    /* Standard orgization of data for measuring horn charateristics */
     public class Data
     {
         public string Name { get; set; }
@@ -54,11 +57,14 @@ namespace BodeGUI
 
         }
 
+        /* Automatically searches for first availible bode100 device */
         public void Connect()
         {
             bode = auto.Connect();
             measurement = bode.Impedance.CreateOnePortMeasurement();
         }
+
+        /* Sweeps relevant frequencies for Bluesky pushmode piezo */
         public void Sweep()
         {
             int sweep_PTS = 201;
@@ -108,6 +114,7 @@ namespace BodeGUI
 
         }
 
+        /* Open,Short,Load called by consecutive clicks of the calibrate button */
         public void Open()
         {
             ExecutionState state = measurement.Calibration.FullRange.ExecuteOpen();
@@ -120,12 +127,6 @@ namespace BodeGUI
 
         public void Load()
         {
-            //var visaSession = new TcpipSocket(measurement.PortExtension);
-            //visaSession.RawIO.Write(":CALC:PAR:DEF OnePort\n");
-            //visaSession.RawIO.Write(":SENS:CORR:LOAD 100Ohm\n");
-            //visaSession.RawIO.Write(":SENS:CORR:FULL:LOAD\n");
-            //visaSession.RawIO.Write("*OPC?*\n");
-            //visaSession.RawIO.ReadString();
             ExecutionState state = measurement.Calibration.FullRange.ExecuteLoad();
         }
 
