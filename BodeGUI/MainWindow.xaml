@@ -6,8 +6,13 @@
         xmlns:local="clr-namespace:BodeGUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Closing="ChildWindow_Closing" Background="#4B4646">
+    <StackPanel>
+        
+    </StackPanel>
     <Grid>
         <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="0.1*"/>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
@@ -28,40 +33,55 @@
         </Grid.RowDefinitions>
         <Button Content="Run" HorizontalAlignment="Stretch" Grid.Column="6" Grid.Row="4" VerticalAlignment="Stretch" Margin="4,4" Click="Button_Click_Run" />
         <Button Content="Calibrate" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2" Margin="52,4" VerticalAlignment="Stretch" Click="Button_Click_Cal"/>
-        <Label Content="Bode Horn Characteristics" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" FontSize="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" FontWeight="DemiBold" Foreground="LightGray"/>
-        <ListView Name="HornData" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="8" Grid.RowSpan="3" Margin="40,0" VerticalAlignment="Center" HorizontalContentAlignment="Center"  >
+        <Label Content="Bode Horn Characteristics" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontWeight="DemiBold" Foreground="LightGray"/>
+        <ListView Name="HornData" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="7" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalContentAlignment="Center"  >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Horn" Width="100" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Capacitance (pF)" Width="120"   DisplayMemberBinding="{Binding Path=Capacitance}"/>
-                    <GridViewColumn Header="Res Frequency (kHz)" Width="120" DisplayMemberBinding="{Binding Resfreq}"/>
-                    <GridViewColumn Header="Anti Frequency (kHz)" Width="120"  DisplayMemberBinding="{Binding Antifreq}"/>
-                    <GridViewColumn Header="Impedance" Width="120"  DisplayMemberBinding="{Binding Res_impedance}"/>
-                    <GridViewColumn Header="Anti-Impedance (kΩ)" Width="120" DisplayMemberBinding="{Binding Anti_impedance}"/>
+                    <GridViewColumn Header="Horn" Width="Auto" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Capacitance (pF)" Width="auto"   DisplayMemberBinding="{Binding Path=Capacitance}"/>
+                    <GridViewColumn Header="Res Frequency (kHz)" Width="auto" DisplayMemberBinding="{Binding Resfreq}"/>
+                    <GridViewColumn Header="Anti Frequency (kHz)" Width="auto"  DisplayMemberBinding="{Binding Antifreq}"/>
+                    <GridViewColumn Header="Impedance" Width="auto"  DisplayMemberBinding="{Binding Res_impedance}"/>
+                    <GridViewColumn Header="Anti-Impedance (kΩ)" Width="auto" DisplayMemberBinding="{Binding Anti_impedance}"/>
                 </GridView>
             </ListView.View>
         </ListView>
+        <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="4">
+            <Button Content="Connect" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_Connect"/>
+            <TextBlock/>
+            <Button Name="ShortTest" HorizontalAlignment="Stretch" Content="Short"/>
 
+            <TextBlock/>
+            <Button Name="OpenTest" HorizontalAlignment="Stretch" Content="Open"/>
+            <TextBlock/>
+            <Button Name="LoadTest" HorizontalAlignment="Stretch" Content="Load"/>
+            <Button Name="Export" Content="Export to CSV" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Export_Click"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" Margin="4,0,0,0" Width="70" HorizontalAlignment="Left">
+            <TextBox Name="connectBox" Background="Red" TextAlignment="Center" Text="Connected" HorizontalAlignment="Stretch"/>
+            <TextBlock/>
+            <TextBox Name="openBox" Background="Red"  Grid.Column="5" Grid.Row="4" TextAlignment="Center" Text="Ready" HorizontalAlignment="Left"/>
+            <TextBlock/>
+            <TextBox Name="shortBox" Background="Red"  Grid.Column="5" Grid.Row="4" TextAlignment="Center" Text="Ready" HorizontalAlignment="Left"/>
+            <TextBlock/>
+            <TextBox Name="loadBox" Background="Red"  Grid.Column="5" Grid.Row="4" TextAlignment="Center" Text="Ready" HorizontalAlignment="Left"/>
+        </StackPanel>
         <Label Content="Horn Name :" Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="16" Foreground="LightGray"/>
-        <Label Content="File Name :" Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" FontWeight="Bold" FontSize="16" Foreground="LightGray" Margin="12,0,0,0"/>
         <TextBox Name="Text1" TextWrapping="Wrap" Grid.Column="5" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="6" Height="20" Width="140" TextChanged="TextBox_TextChanged"/>
-        <TextBox Name="fileBox" TextWrapping="Wrap" Grid.Column="5" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="6" Height="20" Width="140" TextChanged="TextBox_TextChanged"/>
-        <Button Content="Connect" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" Click="Button_Click_Connect" Margin="4,4"/>
-        <TextBox Name="connectBox" Background="Red"  Grid.Column="1" Grid.Row="4" TextAlignment="Center" Text="Connected" VerticalAlignment="Top" Margin="4,0"/>
+
         <ProgressBar Name="connectProgress" IsIndeterminate="True" Visibility="Hidden" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" Grid.ColumnSpan="6" Height="20"/>
         <Label Content="Open" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="6,0" FontWeight="Bold" Foreground="DarkGray"/>
         <Label Content="Short" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="6,0" FontWeight="Bold" Foreground="DarkGray"/>
         <Label Content="Load" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="6,0" FontWeight="Bold" Foreground="DarkGray"/>
-        <TextBox Name="openBox" Background="Red"  Grid.Column="5" Grid.Row="4" TextAlignment="Center" Text="Ready" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,4"/>
-        <TextBox Name="shortBox" Background="Red"  Grid.Column="5" Grid.Row="4" TextAlignment="Center" Text="Ready" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,4"/>
-        <TextBox Name="loadBox" Background="Red"  Grid.Column="5" Grid.Row="4" TextAlignment="Center" Text="Ready" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,4"/>
+
         <TextBox Name="calInstruct" Background="AntiqueWhite" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="8" BorderBrush="Transparent" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,4" Visibility="Collapsed">
             <TextBox.FontSize>20</TextBox.FontSize>
             <TextBox.Text>Click Calibrate when ready to perform the open test</TextBox.Text>
         </TextBox>
         <TextBox Name="calibrateBox" Background="Red"  Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2" TextAlignment="Center" Text="Calibrated" VerticalAlignment="Top" Margin="52,0"/>
         <Button Name="testButton" Content="  Test  " Grid.Column="3" Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Right" Click="click_testButton" Margin="6,1"/>
-        <TextBox Name="testBox" Text ="    Ω" Grid.Column="4" Grid.Row="5" TextAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="6,2"/>
-        <Button Name="Export" Content="Export to CSV" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,0,0,0" Click="Export_Click"/>
+        <TextBox Name="testBox" Text ="     Ω" Grid.Column="4" Grid.Row="5" TextAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="6,2"/>
+
     </Grid>
 </Window>

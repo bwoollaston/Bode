@@ -1,0 +1,21 @@
+﻿<Window x:Class="BodeGUI.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BodeGUI"
+        mc:Ignorable="d"
+        Title="Window1" Height="450" Width="800" Background="#4B4646">
+    <Border Visibility="Visible" BorderThickness="2" CornerRadius="8" Margin="10,10,10,10">
+        <StackPanel>
+            <Label Content="B o d e   H o r n   C h a r a c t e r i s t i c s" Background="LightSkyBlue" FontWeight="Bold" FontSize="18"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </StackPanel>
+    </Border>
+</Window>

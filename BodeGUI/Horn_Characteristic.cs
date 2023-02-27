@@ -44,6 +44,7 @@ namespace BodeGUI
             Anti_impedance = 0;
         }
     }
+    /* Main class with methods for measurements of horn characteristics */
     public class Horn_Characteristic
     {
         public OnePortMeasurement measurement;
