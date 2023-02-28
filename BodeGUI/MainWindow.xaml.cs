@@ -18,14 +18,16 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using CsvHelper;
 using System.Globalization;
+using System.Diagnostics;
+using MaterialDesignThemes;
 
 namespace BodeGUI
 {
     public partial class MainWindow : Window
     {
         string txt = "string";
-        string fileName = "";
         int clk = 0;
+        bool IsProgLoading=false;
         public Horn_Characteristic horn_Characteristic = new();
         public ObservableCollection<Data> horn_list = new();
         public MainWindow()
@@ -119,10 +121,6 @@ namespace BodeGUI
             }
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
         /* When exiting window promts user before disconnecting the bode device */
         void ChildWindow_Closing(object sender, CancelEventArgs e)
         {
@@ -138,9 +136,11 @@ namespace BodeGUI
             connectProgress.Visibility = Visibility.Visible;
             try
             {
+                IsProgLoading = true;
                 horn_Characteristic.Connect(); 
                 connectProgress.Visibility = Visibility.Hidden;
                 connectBox.Background = new SolidColorBrush(Colors.Green);
+                IsProgLoading = false;
             }
             catch(Exception ex)
             {
@@ -169,24 +169,16 @@ namespace BodeGUI
         /* Exports data form horn_list to desktop directory named "bodeData" */
         private void Export_Click(object sender, RoutedEventArgs e)
         {
-            fileName = fileBox.Text + ".csv";
             try
             {
-                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-                filePath = filePath+"\\bodeData";
-                if (!Directory.Exists(filePath))
-                {
-                    Directory.CreateDirectory(filePath);
-                }
-                fileName = System.IO.Path.Combine(filePath,fileName);
-                
+                string fileName = horn_Characteristic.ExportPath();
                 using (var writer = new StreamWriter(fileName))
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                 {
                     csv.WriteRecords(horn_list);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Unable to write csv", "Exception Sample", MessageBoxButton.OK);
             }

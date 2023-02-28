@@ -9,6 +9,7 @@ using OmicronLab.VectorNetworkAnalysis.AutomationInterface.Interfaces;
 using OmicronLab.VectorNetworkAnalysis.AutomationInterface.Interfaces.Measurements;
 using OmicronLab.VectorNetworkAnalysis.AutomationInterface.Enumerations;
 using OmicronLab.VectorNetworkAnalysis.AutomationInterface.DataTypes;
+using Microsoft.Win32;
 
 namespace BodeGUI
 {
@@ -147,6 +148,21 @@ namespace BodeGUI
         public void Disconnect()
         {
             if(bode != null) bode.ShutDown();
+        }
+        /* Eport path opens file explorer and returns a path to save data entered by user */
+        public string ExportPath()
+        {
+            string fileSelected = "";
+            SaveFileDialog openFileDialog = new SaveFileDialog();
+            openFileDialog.InitialDirectory = "c:\\";
+            openFileDialog.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
+            openFileDialog.Title = "Select file loaction";
+            openFileDialog.RestoreDirectory = true;
+            if (openFileDialog.ShowDialog() == true)
+            {
+                fileSelected = openFileDialog.FileName;
+            }
+            return fileSelected;
         }
     }
 }

@@ -6,9 +6,6 @@
         xmlns:local="clr-namespace:BodeGUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Closing="ChildWindow_Closing" Background="#4B4646">
-    <StackPanel>
-        
-    </StackPanel>
     <Grid>
         <Grid.ColumnDefinitions>
 
@@ -34,18 +31,7 @@
         <Button Content="Run" HorizontalAlignment="Stretch" Grid.Column="6" Grid.Row="4" VerticalAlignment="Stretch" Margin="4,4" Click="Button_Click_Run" />
         <Button Content="Calibrate" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2" Margin="52,4" VerticalAlignment="Stretch" Click="Button_Click_Cal"/>
         <Label Content="Bode Horn Characteristics" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontWeight="DemiBold" Foreground="LightGray"/>
-        <ListView Name="HornData" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="7" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalContentAlignment="Center"  >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Horn" Width="Auto" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Capacitance (pF)" Width="auto"   DisplayMemberBinding="{Binding Path=Capacitance}"/>
-                    <GridViewColumn Header="Res Frequency (kHz)" Width="auto" DisplayMemberBinding="{Binding Resfreq}"/>
-                    <GridViewColumn Header="Anti Frequency (kHz)" Width="auto"  DisplayMemberBinding="{Binding Antifreq}"/>
-                    <GridViewColumn Header="Impedance" Width="auto"  DisplayMemberBinding="{Binding Res_impedance}"/>
-                    <GridViewColumn Header="Anti-Impedance (kΩ)" Width="auto" DisplayMemberBinding="{Binding Anti_impedance}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+
         <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="4">
             <Button Content="Connect" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_Connect"/>
             <TextBlock/>
@@ -74,7 +60,18 @@
         <Label Content="Open" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="6,0" FontWeight="Bold" Foreground="DarkGray"/>
         <Label Content="Short" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="6,0" FontWeight="Bold" Foreground="DarkGray"/>
         <Label Content="Load" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="6,0" FontWeight="Bold" Foreground="DarkGray"/>
-
+        <ListView Name="HornData" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="7" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalContentAlignment="Center"  >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Horn" Width="Auto" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Capacitance (pF)" Width="auto"   DisplayMemberBinding="{Binding Path=Capacitance}"/>
+                    <GridViewColumn Header="Res Frequency (kHz)" Width="auto" DisplayMemberBinding="{Binding Resfreq}"/>
+                    <GridViewColumn Header="Anti Frequency (kHz)" Width="auto"  DisplayMemberBinding="{Binding Antifreq}"/>
+                    <GridViewColumn Header="Impedance" Width="auto"  DisplayMemberBinding="{Binding Res_impedance}"/>
+                    <GridViewColumn Header="Anti-Impedance (kΩ)" Width="auto" DisplayMemberBinding="{Binding Anti_impedance}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
         <TextBox Name="calInstruct" Background="AntiqueWhite" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="8" BorderBrush="Transparent" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,4" Visibility="Collapsed">
             <TextBox.FontSize>20</TextBox.FontSize>
             <TextBox.Text>Click Calibrate when ready to perform the open test</TextBox.Text>
