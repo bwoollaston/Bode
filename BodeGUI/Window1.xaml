@@ -14,6 +14,12 @@
                 <RowDefinition Height="7*" Name="InterfaceRow"/>
                 <RowDefinition Height="1.5*" Name="TaskRow"/>
             </Grid.RowDefinitions>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
             <Label Content="B o d e   H o r n   C h a r a c t e r i s t i c s" Background="LightSkyBlue" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
