@@ -140,5 +140,52 @@ namespace BodeGUI
 
         }
 
+        private void Button_Click_Open(object sender, RoutedEventArgs e)
+        {
+            openBox.Background = new SolidColorBrush(Colors.Red);
+            connectProgress.Visibility = Visibility.Visible;
+            try
+            {
+                horn_Characteristic.OpenCal();
+                openBox.Background = new SolidColorBrush(Colors.Green);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to perform open test", "Exception Sample", MessageBoxButton.OK);
+            }
+            connectProgress.Visibility = Visibility.Collapsed;
+        }
+
+        private void Button_Click_Short(object sender, RoutedEventArgs e)
+        {
+            shortBox.Background = new SolidColorBrush(Colors.Red);
+            connectProgress.Visibility = Visibility.Visible;
+            try
+            {
+                horn_Characteristic.ShortCal();
+                shortBox.Background = new SolidColorBrush(Colors.Green);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to perform short test", "Exception Sample", MessageBoxButton.OK);
+            }
+            connectProgress.Visibility = Visibility.Collapsed;
+        }
+
+        private void Button_Click_Load(object sender, RoutedEventArgs e)
+        {
+            shortBox.Background = new SolidColorBrush(Colors.Red);
+            connectProgress.Visibility = Visibility.Visible;
+            try
+            {
+                horn_Characteristic.ShortCal();
+                shortBox.Background = new SolidColorBrush(Colors.Green);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to perform short test", "Exception Sample", MessageBoxButton.OK);
+            }
+            connectProgress.Visibility = Visibility.Collapsed;
+        }
     }
 }

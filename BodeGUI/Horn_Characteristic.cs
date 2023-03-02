@@ -117,17 +117,17 @@ namespace BodeGUI
         }
 
         /* Open,Short,Load called by consecutive clicks of the calibrate button */
-        public void Open()
+        public void OpenCal()
         {
             ExecutionState state = measurement.Calibration.FullRange.ExecuteOpen();
         }
 
-        public void Short()
+        public void ShortCal()
         {
             ExecutionState state = measurement.Calibration.FullRange.ExecuteShort();
         }
 
-        public void Load()
+        public void LoadCal()
         {
             ExecutionState state = measurement.Calibration.FullRange.ExecuteLoad();
         }

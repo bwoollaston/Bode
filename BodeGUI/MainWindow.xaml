@@ -21,28 +21,31 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="33.785"/>
                         <RowDefinition Height="250"/>
                         <RowDefinition Height="75"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="25"/>
                         <ColumnDefinition Width="575"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="22.5"/>
                     </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="1" Grid.Column="1">
+                        <ListView Name="HornData" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="10" Foreground="#FF0B0B0C"  >
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Horn" Width="70" DisplayMemberBinding="{Binding Name}"/>
+                                    <GridViewColumn Header="Capacitance (pF)" Width="100"   DisplayMemberBinding="{Binding Path=Capacitance}"/>
+                                    <GridViewColumn Header="Res Frequency (kHz)" Width="100" DisplayMemberBinding="{Binding Resfreq}"/>
+                                    <GridViewColumn Header="Anti Frequency (kHz)" Width="100"  DisplayMemberBinding="{Binding Antifreq}"/>
+                                    <GridViewColumn Header="Impedance" Width="100"  DisplayMemberBinding="{Binding Res_impedance}"/>
+                                    <GridViewColumn Header="Anti-Impedance (kΩ)" Width="100" DisplayMemberBinding="{Binding Anti_impedance}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Button Name="ExportButton" Content="Export to CSV" HorizontalAlignment="Right" Width="100" Margin="0,4" Click="Export_Click"/>
+                    </StackPanel>
 
-                    <ListView Name="HornData" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="10" Foreground="#FF0B0B0C"  >
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Horn" Width="70" DisplayMemberBinding="{Binding Name}"/>
-                                <GridViewColumn Header="Capacitance (pF)" Width="100"   DisplayMemberBinding="{Binding Path=Capacitance}"/>
-                                <GridViewColumn Header="Res Frequency (kHz)" Width="100" DisplayMemberBinding="{Binding Resfreq}"/>
-                                <GridViewColumn Header="Anti Frequency (kHz)" Width="100"  DisplayMemberBinding="{Binding Antifreq}"/>
-                                <GridViewColumn Header="Impedance" Width="100"  DisplayMemberBinding="{Binding Res_impedance}"/>
-                                <GridViewColumn Header="Anti-Impedance (kΩ)" Width="100" DisplayMemberBinding="{Binding Anti_impedance}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
                 </Grid>
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
@@ -79,9 +82,9 @@
                                 <RowDefinition Height="35"/>
                                 <RowDefinition Height="35"/>
                             </Grid.RowDefinitions>
-                            <Button Content="Open" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Cal" Margin="0,2"/>
-                            <Button Content="Short" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Cal" Margin="0,2"/>
-                            <Button Content="Load" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Cal" Margin="0,2"/>
+                            <Button Content="Open" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Open" Margin="0,2"/>
+                            <Button Content="Short" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Short" Margin="0,2"/>
+                            <Button Content="Load" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Load" Margin="0,2"/>
                             <Button Content="Test" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="click_testButton" Margin="0,2"/>
                             <TextBlock Name="HornNameBlock" Text="Horn Name :" Grid.Row="4" Foreground="LightGray" FontWeight="Bold" VerticalAlignment="Center"/>
                         </Grid>
