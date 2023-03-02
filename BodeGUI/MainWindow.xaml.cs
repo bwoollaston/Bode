@@ -30,6 +30,7 @@ namespace BodeGUI
         int clk = 0;
         bool IsProgLoading=false;
         public Horn_Characteristic horn_Characteristic = new();
+        public ObservableCollection<TaskLog> taskLogs = new();
         public ObservableCollection<Data> horn_list = new();
         public MainWindow()
         {
@@ -42,7 +43,6 @@ namespace BodeGUI
         {
             txt = HornNameBox.Text;
             horn_Characteristic.horn_data.Name = txt;
-
             try
             {
                 horn_Characteristic.Sweep();
@@ -63,8 +63,6 @@ namespace BodeGUI
             HornData.ItemsSource = horn_list;
 
         }
-
-        /* Button click initializes the calibration process, iterates through the 3 cal steps and returns to original state */
 
         /* When exiting window promts user before disconnecting the bode device */
         void ChildWindow_Closing(object sender, CancelEventArgs e)

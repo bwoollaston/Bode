@@ -13,6 +13,18 @@ using Microsoft.Win32;
 
 namespace BodeGUI
 {
+    public class TaskLog
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public bool IsTaskSuccessful { get; set; }
+        public TaskLog() 
+        {
+            Name= string.Empty;
+            Description= string.Empty;
+            IsTaskSuccessful= false;
+        }
+    }
     public class Function
     {
         /* Linear interpolation */
