@@ -6,79 +6,101 @@
         xmlns:local="clr-namespace:BodeGUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Closing="ChildWindow_Closing" Background="#4B4646">
-    <Grid>
-        <Grid.ColumnDefinitions>
+    <Border Visibility="Visible" BorderThickness="2" CornerRadius="8" Margin="10,10,10,10">
+        <Grid Margin="0" Height="Auto">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" Name="TitleRow"/>
+                <RowDefinition Height="7*" Name="InterfaceRow"/>
+            </Grid.RowDefinitions>
 
-            <ColumnDefinition Width="0.1*"/>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-
-        </Grid.RowDefinitions>
-        <Button Content="Run" HorizontalAlignment="Stretch" Grid.Column="6" Grid.Row="4" VerticalAlignment="Stretch" Margin="4,4" Click="Button_Click_Run" />
-        <Button Content="Calibrate" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2" Margin="52,4" VerticalAlignment="Stretch" Click="Button_Click_Cal"/>
-        <Label Content="Bode Horn Characteristics" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontWeight="DemiBold" Foreground="LightGray"/>
-
-        <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="4">
-            <Button Content="Connect" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_Connect"/>
-            <TextBlock/>
-            <Button Name="ShortTest" HorizontalAlignment="Stretch" Content="Short"/>
-
-            <TextBlock/>
-            <Button Name="OpenTest" HorizontalAlignment="Stretch" Content="Open"/>
-            <TextBlock/>
-            <Button Name="LoadTest" HorizontalAlignment="Stretch" Content="Load"/>
-            <Button Name="Export" Content="Export to CSV" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Export_Click"/>
-        </StackPanel>
-        
-        <StackPanel Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" Margin="4,0,0,0" Width="70" HorizontalAlignment="Left">
-            <TextBox Name="connectBox" Background="Red" TextAlignment="Center" Text="Connected" HorizontalAlignment="Stretch"/>
-            <TextBlock/>
-            <TextBox Name="openBox" Background="Red"  Grid.Column="5" Grid.Row="4" TextAlignment="Center" Text="Ready" HorizontalAlignment="Left"/>
-            <TextBlock/>
-            <TextBox Name="shortBox" Background="Red"  Grid.Column="5" Grid.Row="4" TextAlignment="Center" Text="Ready" HorizontalAlignment="Left"/>
-            <TextBlock/>
-            <TextBox Name="loadBox" Background="Red"  Grid.Column="5" Grid.Row="4" TextAlignment="Center" Text="Ready" HorizontalAlignment="Left"/>
-        </StackPanel>
-        <Label Content="Horn Name :" Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="16" Foreground="LightGray"/>
-        <TextBox Name="Text1" TextWrapping="Wrap" Grid.Column="5" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="6" Height="20" Width="140" TextChanged="TextBox_TextChanged"/>
-
-        <ProgressBar Name="connectProgress" IsIndeterminate="True" Visibility="Hidden" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" Grid.ColumnSpan="6" Height="20"/>
-        <Label Content="Open" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="6,0" FontWeight="Bold" Foreground="DarkGray"/>
-        <Label Content="Short" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="6,0" FontWeight="Bold" Foreground="DarkGray"/>
-        <Label Content="Load" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="6,0" FontWeight="Bold" Foreground="DarkGray"/>
-        <ListView Name="HornData" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="7" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalContentAlignment="Center"  >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Horn" Width="Auto" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Capacitance (pF)" Width="auto"   DisplayMemberBinding="{Binding Path=Capacitance}"/>
-                    <GridViewColumn Header="Res Frequency (kHz)" Width="auto" DisplayMemberBinding="{Binding Resfreq}"/>
-                    <GridViewColumn Header="Anti Frequency (kHz)" Width="auto"  DisplayMemberBinding="{Binding Antifreq}"/>
-                    <GridViewColumn Header="Impedance" Width="auto"  DisplayMemberBinding="{Binding Res_impedance}"/>
-                    <GridViewColumn Header="Anti-Impedance (kΩ)" Width="auto" DisplayMemberBinding="{Binding Anti_impedance}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <TextBox Name="calInstruct" Background="AntiqueWhite" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="8" BorderBrush="Transparent" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,4" Visibility="Collapsed">
-            <TextBox.FontSize>20</TextBox.FontSize>
-            <TextBox.Text>Click Calibrate when ready to perform the open test</TextBox.Text>
-        </TextBox>
-        <TextBox Name="calibrateBox" Background="Red"  Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2" TextAlignment="Center" Text="Calibrated" VerticalAlignment="Top" Margin="52,0"/>
-        <Button Name="testButton" Content="  Test  " Grid.Column="3" Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Right" Click="click_testButton" Margin="6,1"/>
-        <TextBox Name="testBox" Text ="     Ω" Grid.Column="4" Grid.Row="5" TextAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="6,2"/>
-
-    </Grid>
+            <Label Content="B o d e   H o r n   C h a r a c t e r i s t i c s" Foreground="LightGray" FontWeight="Medium" FontSize="20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" Name="InterfaceColumn"/>
+                    <ColumnDefinition Width="*" Name="DataColumn"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="75"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ProgressBar Name="connectProgress" Grid.Row="3" Grid.Column="1">
+                        
+                    </ProgressBar>
+                    <ListView Name="HornData" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="10" Foreground="#FF0B0B0C"  >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Horn" Width="70" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="Capacitance (pF)" Width="100"   DisplayMemberBinding="{Binding Path=Capacitance}"/>
+                                <GridViewColumn Header="Res Frequency (kHz)" Width="100" DisplayMemberBinding="{Binding Resfreq}"/>
+                                <GridViewColumn Header="Anti Frequency (kHz)" Width="100"  DisplayMemberBinding="{Binding Antifreq}"/>
+                                <GridViewColumn Header="Impedance" Width="100"  DisplayMemberBinding="{Binding Res_impedance}"/>
+                                <GridViewColumn Header="Anti-Impedance (kΩ)" Width="100" DisplayMemberBinding="{Binding Anti_impedance}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="175"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="75"/>
+                    </Grid.RowDefinitions>
+                    <Button Content="Run" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="5" VerticalAlignment="Stretch" Margin="4,4" Click="Button_Click_Run" />
+                    <TextBlock Name="ConnectText" Grid.Column="0" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Bottom" Text="Calibration" FontWeight="Bold" Foreground="LightGray"/>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Content="Connect" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Connect"/>
+                        <TextBlock Name="connectBox" Grid.Column="1" Background="Red" TextAlignment="Center" VerticalAlignment="Center" Text="Connected"/>
+                    </Grid>
+                    <TextBlock Name="CalibrationText" Grid.Column="0" Grid.Row="2" TextAlignment="Center" VerticalAlignment="Bottom" Text="Calibration" Grid.ColumnSpan="2" FontWeight="Bold" Foreground="LightGray"/>
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+                            <Button Content="Open" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Cal" Margin="0,2"/>
+                            <Button Content="Short" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Cal" Margin="0,2"/>
+                            <Button Content="Load" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Cal" Margin="0,2"/>
+                            <Button Content="Test" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="click_testButton" Margin="0,2"/>
+                            <TextBlock Name="HornNameBlock" Text="Horn Name :" Grid.Row="4" Foreground="LightGray" FontWeight="Bold" VerticalAlignment="Center"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Name="openBox" Grid.Row="0" Background="Red" TextAlignment="Center" VerticalAlignment="Center" Text="Ready" Margin="0,2"/>
+                            <TextBlock Name="shortBox" Grid.Row="1" Background="Red" TextAlignment="Center" VerticalAlignment="Center" Text="Ready" Margin="0,2"/>
+                            <TextBlock Name="loadBox" Grid.Row="2" Background="Red" TextAlignment="Center" VerticalAlignment="Center" Text="Ready" Margin="0,2"/>
+                            <TextBox Name="testBox" Grid.Row="3" Background="White" TextAlignment="Right" VerticalAlignment="Center" Text="Ω"/>
+                            <TextBox Name="HornNameBox" Grid.Row="4" Background="White" TextAlignment="Right" VerticalAlignment="Center" Text=""/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
 </Window>

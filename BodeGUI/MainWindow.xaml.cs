@@ -20,6 +20,7 @@ using CsvHelper;
 using System.Globalization;
 using System.Diagnostics;
 using MaterialDesignThemes;
+using MaterialDesignColors;
 
 namespace BodeGUI
 {
@@ -39,7 +40,7 @@ namespace BodeGUI
         /* Runs frequency sweep and presents data in form of a table */
         private void Button_Click_Run(object sender, RoutedEventArgs e)
         {
-            txt = Text1.Text;
+            txt = HornNameBox.Text;
             horn_Characteristic.horn_data.Name = txt;
 
             try
@@ -66,59 +67,13 @@ namespace BodeGUI
         /* Button click initializes the calibration process, iterates through the 3 cal steps and returns to original state */
         private void Button_Click_Cal(object sender, RoutedEventArgs e)
         {
-            if(clk == 0)
+            if (clk == 0)
             {
                 openBox.Background = new SolidColorBrush(Colors.Red);
                 shortBox.Background = new SolidColorBrush(Colors.Red);
                 loadBox.Background = new SolidColorBrush(Colors.Red);
-                calibrateBox.Background = new SolidColorBrush(Colors.Red);
-                calInstruct.Visibility = Visibility.Visible;
-                clk += 1;
             }
-            else if(clk == 1)
-            {
-                try
-                {
-                    horn_Characteristic.Open();
-                    openBox.Background = new SolidColorBrush(Colors.Green);
-                    calInstruct.Text = "Click Calibrate when ready to perform the short test";
-                    clk += 1;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Open calibration failed", "Exception Sample", MessageBoxButton.OK);
-                }
-            }
-            else if (clk == 2)
-            {
-                try
-                {
-                    horn_Characteristic.Short();
-                    shortBox.Background = new SolidColorBrush(Colors.Green);
-                    calInstruct.Text = "Click Calibrate when ready to perform the load test with 50Ω test load";
-                    clk += 1;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Short calibration failed", "Exception Sample", MessageBoxButton.OK);
-                }
-            }
-            else if (clk == 3)
-            {
-                try
-                {
-                    horn_Characteristic.Load();
-                    loadBox.Background = new SolidColorBrush(Colors.Green);
-                    calInstruct.Text = "Click Calibrate when ready to perform the open test";
-                    calInstruct.Visibility = Visibility.Collapsed;
-                    calibrateBox.Background = new SolidColorBrush(Colors.Green);
-                    clk = 0;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Load calibration failed", "Exception Sample", MessageBoxButton.OK);
-                }
-            }
+
         }
 
         /* When exiting window promts user before disconnecting the bode device */

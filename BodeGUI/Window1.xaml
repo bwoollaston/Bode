@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BodeGUI"
         mc:Ignorable="d"
 
-        Title="Window1" Height="450" Width="800" Background="#4B4646" SizeToContent="WidthAndHeight">
+        Title="Window1" Height="450" Width="800" Background="#4B4646" MinWidth="300">               <!--add min height***-->
     <Border Visibility="Visible" BorderThickness="2" CornerRadius="8" Margin="10,10,10,10">
         <Grid Margin="0" Height="Auto">
             <Grid.RowDefinitions>
@@ -20,14 +20,39 @@
                     <ColumnDefinition Width="150" Name="InterfaceColumn"/>
                     <ColumnDefinition Width="*" Name="DataColumn"/>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
+                <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height=".5*"/>
-                        <RowDefinition Height="3*"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="75"/>
                     </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListView Name="HornData" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="10" Foreground="#FF0B0B0C"  >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Horn" Width="70" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="Capacitance (pF)" Width="100"   DisplayMemberBinding="{Binding Path=Capacitance}"/>
+                                <GridViewColumn Header="Res Frequency (kHz)" Width="100" DisplayMemberBinding="{Binding Resfreq}"/>
+                                <GridViewColumn Header="Anti Frequency (kHz)" Width="100"  DisplayMemberBinding="{Binding Antifreq}"/>
+                                <GridViewColumn Header="Impedance" Width="100"  DisplayMemberBinding="{Binding Res_impedance}"/>
+                                <GridViewColumn Header="Anti-Impedance (kΩ)" Width="100" DisplayMemberBinding="{Binding Anti_impedance}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="175"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="75"/>
+                    </Grid.RowDefinitions>
+                    <Button Content="Run" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="5" VerticalAlignment="Stretch" Margin="4,4" Click="Button_Click_Run" />
                     <TextBlock Name="ConnectText" Grid.Column="0" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Bottom" Text="Calibration" FontWeight="Bold" Foreground="LightGray"/>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>

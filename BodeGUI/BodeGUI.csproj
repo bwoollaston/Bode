@@ -8,7 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Window1.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Window1.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CsvHelper" Version="30.0.1" />
+    <PackageReference Include="MaterialDesignColors" Version="2.1.1" />
     <PackageReference Include="MaterialDesignThemes" Version="4.7.1" />
     <PackageReference Include="OmicronLab.VectorNetworkAnalysis.AutomationInterface" Version="3.25.2241.1" />
     <PackageReference Include="SimpleTCP" Version="1.0.24" />
