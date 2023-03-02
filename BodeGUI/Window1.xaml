@@ -12,64 +12,68 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" Name="TitleRow"/>
                 <RowDefinition Height="7*" Name="InterfaceRow"/>
-                <RowDefinition Height="1.5*" Name="TaskRow"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="4*"/>
-                </Grid.ColumnDefinitions>
-            </Grid>
+
             <Label Content="B o d e   H o r n   C h a r a c t e r i s t i c s" Background="LightSkyBlue" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" Name="InterfaceColumn"/>
-                    <ColumnDefinition Width="4*" Name="DataColumn"/>
+                    <ColumnDefinition Width="150" Name="InterfaceColumn"/>
+                    <ColumnDefinition Width="*" Name="DataColumn"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1.5*" Name="ButtonColumn"/>
-                        <ColumnDefinition Width="*" Name="StatusColumn"/>
-                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height=".75*"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="30"/>
                         <RowDefinition Height=".5*"/>
                         <RowDefinition Height="3*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Name="ConnectText" Grid.Column="0" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Center" Text="Calibration" Grid.ColumnSpan="2" FontWeight="Bold" Foreground="LightGray"/>
-                    <Button Content="Connect" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Connect"/>
-                    <TextBlock Name="connectBox" Grid.Column="1" Grid.Row="1" Background="Red" TextAlignment="Center" VerticalAlignment="Center" Text="Connected"/>
-                    <TextBlock Name="CalibrationText" Grid.Column="0" Grid.Row="2" TextAlignment="Center" VerticalAlignment="Center" Text="Calibration" Grid.ColumnSpan="2" FontWeight="Bold" Foreground="LightGray"/>
-                    <Grid Grid.Column="0" Grid.Row="3">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Button Content="Open" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Cal" Margin="0,2"/>
-                        <Button Content="Short" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Cal" Margin="0,2"/>
-                        <Button Content="Load" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Cal" Margin="0,2"/>
-                        <Button Content="Test" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Cal" Margin="0,2"/>
-                        <TextBlock Name="HornNameBlock" Text="Horn Name :" Grid.Row="4" Foreground="LightGray" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock Name="ConnectText" Grid.Column="0" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Bottom" Text="Calibration" FontWeight="Bold" Foreground="LightGray"/>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Content="Connect" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Connect"/>
+                        <TextBlock Name="connectBox" Grid.Column="1" Background="Red" TextAlignment="Center" VerticalAlignment="Center" Text="Connected"/>
+                    </Grid>
+                    <TextBlock Name="CalibrationText" Grid.Column="0" Grid.Row="2" TextAlignment="Center" VerticalAlignment="Bottom" Text="Calibration" Grid.ColumnSpan="2" FontWeight="Bold" Foreground="LightGray"/>
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+                            <Button Content="Open" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Cal" Margin="0,2"/>
+                            <Button Content="Short" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Cal" Margin="0,2"/>
+                            <Button Content="Load" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Cal" Margin="0,2"/>
+                            <Button Content="Test" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Cal" Margin="0,2"/>
+                            <TextBlock Name="HornNameBlock" Text="Horn Name :" Grid.Row="4" Foreground="LightGray" FontWeight="Bold" VerticalAlignment="Center"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Name="OpenBox" Grid.Row="0" Background="Red" TextAlignment="Center" VerticalAlignment="Center" Text="Ready" Margin="0,2"/>
+                            <TextBlock Name="ShortBox" Grid.Row="1" Background="Red" TextAlignment="Center" VerticalAlignment="Center" Text="Ready" Margin="0,2"/>
+                            <TextBlock Name="LoadBox" Grid.Row="2" Background="Red" TextAlignment="Center" VerticalAlignment="Center" Text="Ready" Margin="0,2"/>
+                            <TextBox Name="TestBox" Grid.Row="3" Background="White" TextAlignment="Right" VerticalAlignment="Center" Text="Ω"/>
+                            <TextBox Name="HornNameBox" Grid.Row="4" Background="White" TextAlignment="Right" VerticalAlignment="Center" Text=""/>
+                        </Grid>
 
                     </Grid>
-                    <Grid Grid.Row="3" Grid.Column="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Name="OpenBox" Grid.Row="0" Background="Red" TextAlignment="Center" VerticalAlignment="Center" Text="Ready" Margin="0,2"/>
-                        <TextBlock Name="ShortBox" Grid.Row="1" Background="Red" TextAlignment="Center" VerticalAlignment="Center" Text="Ready" Margin="0,2"/>
-                        <TextBlock Name="LoadBox" Grid.Row="2" Background="Red" TextAlignment="Center" VerticalAlignment="Center" Text="Ready" Margin="0,2"/>
-                        <TextBox Name="TestBox" Grid.Row="3" Background="White" TextAlignment="Right" VerticalAlignment="Center" Text="Ω"/>
-                        <TextBox Name="HornNameBox" Grid.Row="4" Background="White" TextAlignment="Right" VerticalAlignment="Center" Text=""/>
-                    </Grid>
+
                 </Grid>
             </Grid>
             
