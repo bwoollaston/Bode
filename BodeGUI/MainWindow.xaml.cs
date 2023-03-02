@@ -65,16 +65,6 @@ namespace BodeGUI
         }
 
         /* Button click initializes the calibration process, iterates through the 3 cal steps and returns to original state */
-        private void Button_Click_Cal(object sender, RoutedEventArgs e)
-        {
-            if (clk == 0)
-            {
-                openBox.Background = new SolidColorBrush(Colors.Red);
-                shortBox.Background = new SolidColorBrush(Colors.Red);
-                loadBox.Background = new SolidColorBrush(Colors.Red);
-            }
-
-        }
 
         /* When exiting window promts user before disconnecting the bode device */
         void ChildWindow_Closing(object sender, CancelEventArgs e)

@@ -22,15 +22,16 @@
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="33.785"/>
-                        <RowDefinition Height="250"/>
+                        <RowDefinition Height="233"/>
                         <RowDefinition Height="75"/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="25"/>
                         <ColumnDefinition Width="575"/>
                         <ColumnDefinition Width="22.5"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Row="1" Grid.Column="1">
+                    <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,0,0,2">
                         <ListView Name="HornData" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="10" Foreground="#FF0B0B0C"  >
                             <ListView.View>
                                 <GridView>
@@ -45,7 +46,7 @@
                         </ListView>
                         <Button Name="ExportButton" Content="Export to CSV" HorizontalAlignment="Right" Width="100" Margin="0,4" Click="Export_Click"/>
                     </StackPanel>
-
+                    <TextBlock Name="TaskBlock" Grid.Row="2" Grid.Column="1" Background="White" Margin="10,10,10,10"/>
                 </Grid>
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
