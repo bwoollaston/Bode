@@ -22,16 +22,15 @@
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="250"/>
                         <RowDefinition Height="75"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="575"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <ProgressBar Name="connectProgress" Grid.Row="3" Grid.Column="1">
-                        
-                    </ProgressBar>
+
                     <ListView Name="HornData" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="10" Foreground="#FF0B0B0C"  >
                         <ListView.View>
                             <GridView>
@@ -51,10 +50,12 @@
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="175"/>
-                        <RowDefinition Height="*"/>
                         <RowDefinition Height="75"/>
+                        <RowDefinition Height="20"/>
                     </Grid.RowDefinitions>
-                    <Button Content="Run" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="5" VerticalAlignment="Stretch" Margin="4,4" Click="Button_Click_Run" />
+                    <Button Content="Run" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="4" VerticalAlignment="Stretch" Margin="4,4" Click="Button_Click_Run" />
+                    <ProgressBar Name="connectProgress" Grid.Row="5" Margin="4,4" Visibility="Collapsed"/>
+
                     <TextBlock Name="ConnectText" Grid.Column="0" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Bottom" Text="Calibration" FontWeight="Bold" Foreground="LightGray"/>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
