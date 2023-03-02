@@ -18,11 +18,11 @@ namespace BodeGUI
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsTaskSuccessful { get; set; }
-        public TaskLog() 
+        public TaskLog()
         {
-            Name= string.Empty;
-            Description= string.Empty;
-            IsTaskSuccessful= false;
+            Name = string.Empty;
+            Description = string.Empty;
+            IsTaskSuccessful = false;
         }
     }
     public class Function
@@ -31,7 +31,7 @@ namespace BodeGUI
         public double inter(double x, double x1, double x2, double y1, double y2)
         {
             double y;
-            y = y1 + (x-x1) * ((y2-y1)/(x2-x1));
+            y = y1 + (x - x1) * ((y2 - y1) / (x2 - x1));
             return (y);
         }
     }
@@ -39,16 +39,18 @@ namespace BodeGUI
     /* Standard orgization of data for measuring horn charateristics */
     public class Data
     {
+        public int Index { get; set; }
         public string Name { get; set; }
         public double Resfreq { get; set; }
         public double Antifreq { get; set; }
-        public double Res_impedance  { get; set; }
+        public double Res_impedance { get; set; }
         public double Anti_impedance { get; set; }
         public double Capacitance { get; set; }
         public double Resistance { get; set; }
 
         public Data()
         {
+            Index = 0;
             Name = "Name";
             Capacitance = 0;
             Resfreq = 0;
@@ -65,10 +67,14 @@ namespace BodeGUI
         public ExecutionState state;
         public BodeAutomationInterface auto = new BodeAutomation();
         public Data horn_data = new();
-
+        public int sweep_PTS { get; set; }
+        public double sweep_LOW { get; set; }
+        public double sweep_HIGH { get; set; }
         public Horn_Characteristic()
         {
-
+            sweep_PTS = 201;
+            sweep_LOW = 180000;
+            sweep_HIGH = 190000;
         }
 
         /* Automatically searches for first availible bode100 device */
@@ -81,9 +87,6 @@ namespace BodeGUI
         /* Sweeps relevant frequencies for Bluesky pushmode piezo */
         public void Sweep()
         {
-            int sweep_PTS = 201;
-            double sweep_LOW = 180000;
-            double sweep_HIGH = 190000;
             Function function = new Function();
             measurement.ConfigureSweep(sweep_LOW, sweep_HIGH, sweep_PTS, SweepMode.Logarithmic);
             state = measurement.ExecuteMeasurement();
@@ -97,10 +100,10 @@ namespace BodeGUI
             double[] impedance = measurement.Results.Magnitude(MagnitudeUnit.Lin);
             horn_data.Resfreq = measurement.Results.CalculateFResQValues(false, true, FResQFormats.Magnitude).ResonanceFrequency;
             horn_data.Antifreq = measurement.Results.CalculateFResQValues(true, true, FResQFormats.Magnitude).ResonanceFrequency;
-            
-            for(int i = 0; i < freq.Length; i++)
+
+            for (int i = 0; i < freq.Length; i++)
             {
-                if(freq[i] < horn_data.Resfreq && freq[i+1] >= horn_data.Resfreq)
+                if (freq[i] < horn_data.Resfreq && freq[i + 1] >= horn_data.Resfreq)
                 {
                     horn_data.Res_impedance = function.inter(horn_data.Resfreq, freq[i], freq[i + 1], impedance[i], impedance[i + 1]);
                 }
@@ -109,8 +112,8 @@ namespace BodeGUI
                     horn_data.Anti_impedance = function.inter(horn_data.Antifreq, freq[i], freq[i + 1], impedance[i], impedance[i + 1]);
                 }
             }
-            horn_data.Resfreq = Math.Round(horn_data.Resfreq / 1000.0 , 3 ,MidpointRounding.AwayFromZero);
-            horn_data.Antifreq = Math.Round(horn_data.Antifreq / 1000.0, 3 , MidpointRounding.AwayFromZero);
+            horn_data.Resfreq = Math.Round(horn_data.Resfreq / 1000.0, 3, MidpointRounding.AwayFromZero);
+            horn_data.Antifreq = Math.Round(horn_data.Antifreq / 1000.0, 3, MidpointRounding.AwayFromZero);
             horn_data.Res_impedance = Math.Round(horn_data.Res_impedance, 3, MidpointRounding.AwayFromZero);
             horn_data.Anti_impedance = Math.Round(horn_data.Anti_impedance / 1000.0, 3, MidpointRounding.AwayFromZero);
 
@@ -124,7 +127,9 @@ namespace BodeGUI
             }
             freq = measurement.Results.MeasurementFrequencies;
             double cap = measurement.Results.CsAt(0);
-            horn_data.Capacitance = cap;
+
+            /* **************** Debug this line ************* */
+            horn_data.Capacitance = Math.Round(cap / 1000.0, 3, MidpointRounding.AwayFromZero);
 
         }
 
@@ -154,12 +159,12 @@ namespace BodeGUI
                 bode.ShutDown();
                 return;
             }
-            horn_data.Resistance = measurement.Results.MagnitudeAt(0,MagnitudeUnit.Lin);
+            horn_data.Resistance = measurement.Results.MagnitudeAt(0, MagnitudeUnit.Lin);
         }
 
         public void Disconnect()
         {
-            if(bode != null) bode.ShutDown();
+            if (bode != null) bode.ShutDown();
         }
         /* Eport path opens file explorer and returns a path to save data entered by user */
         public string ExportPath()

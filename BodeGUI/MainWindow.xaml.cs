@@ -27,15 +27,32 @@ namespace BodeGUI
     public partial class MainWindow : Window
     {
         string txt = "string";
+        double progbarwidth = 142;
         int clk = 0;
-        bool IsProgLoading=false;
-        public Horn_Characteristic horn_Characteristic = new();
-        public ObservableCollection<TaskLog> taskLogs = new();
-        public ObservableCollection<Data> horn_list = new();
+        int index = 1;
+        public bool IsProgLoading                                           //Flag indicating whether a task is in progress
+        {
+            get { return _isProgLoading; }
+            set
+            {
+                _isProgLoading = value;
+                if(_isProgLoading == true)
+                {
+                    programLoadingUpdate();
+                }
+                else
+                {
+
+                }
+            }
+        }
+        private bool _isProgLoading;
+        public Horn_Characteristic horn_Characteristic = new();             //Instance of class used to interact with bode automation interface
+        public ObservableCollection<TaskLog> taskLogs = new();              //Log of successful and unsuccessful tasks
+        public ObservableCollection<Data> horn_list = new();                //Data list to be written to window and exported to csv
         public MainWindow()
         {
             InitializeComponent();
-
         }
 
         /* Runs frequency sweep and presents data in form of a table */
@@ -53,6 +70,7 @@ namespace BodeGUI
             }
             horn_list.Add(new Data()
             {
+                Index = index,
                 Name = horn_Characteristic.horn_data.Name,
                 Resfreq = horn_Characteristic.horn_data.Resfreq,
                 Antifreq = horn_Characteristic.horn_data.Antifreq,
@@ -61,6 +79,7 @@ namespace BodeGUI
                 Capacitance = horn_Characteristic.horn_data.Capacitance
             });
             HornData.ItemsSource = horn_list;
+            index += 1;
 
         }
 
@@ -147,7 +166,7 @@ namespace BodeGUI
         private void Button_Click_Short(object sender, RoutedEventArgs e)
         {
             shortBox.Background = new SolidColorBrush(Colors.Red);
-            connectProgress.Visibility = Visibility.Visible;
+            connectProgress.Width = progbarwidth;
             try
             {
                 horn_Characteristic.ShortCal();
@@ -157,7 +176,7 @@ namespace BodeGUI
             {
                 MessageBox.Show("Unable to perform short test", "Exception Sample", MessageBoxButton.OK);
             }
-            connectProgress.Visibility = Visibility.Collapsed;
+            connectProgress.Width = 0;
         }
 
         private void Button_Click_Load(object sender, RoutedEventArgs e)
@@ -174,6 +193,59 @@ namespace BodeGUI
                 MessageBox.Show("Unable to perform short test", "Exception Sample", MessageBoxButton.OK);
             }
             connectProgress.Visibility = Visibility.Collapsed;
+        }
+
+        private void Task_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EventInProgress()
+        {
+
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                horn_list.Clear();
+                HornData.Items.Clear();
+                index = 1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Clear Failed", "Exception Sample", MessageBoxButton.OK);
+            }
+        }
+        private void programLoadingUpdate()
+        {
+            if (IsProgLoading == true)
+            {
+                runButton.IsEnabled     = false;
+                ClearButton.IsEnabled   = false;
+                connectButton.IsEnabled = false;
+                openButton.IsEnabled    = false;
+                shortButton.IsEnabled   = false;
+                loadButton.IsEnabled    = false;
+                testButton.IsEnabled    = false;
+            }
+            if (IsProgLoading == false)
+            {
+                runButton.IsEnabled     = true;
+                ClearButton.IsEnabled   = true;
+                connectButton.IsEnabled = true;
+                openButton.IsEnabled    = true;
+                shortButton.IsEnabled   = true;
+                loadButton.IsEnabled    = true;
+                testButton.IsEnabled    = true;
+            }
+
         }
     }
 }

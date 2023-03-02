@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="https://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:BodeGUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Closing="ChildWindow_Closing" Background="#4B4646">
@@ -13,7 +14,7 @@
                 <RowDefinition Height="7*" Name="InterfaceRow"/>
             </Grid.RowDefinitions>
 
-            <Label Content="B o d e   H o r n   C h a r a c t e r i s t i c s" Foreground="LightGray" FontWeight="Medium" FontSize="20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <Label Content="B o d e   H o r n   C h a r a c t e r i s t i c s" Foreground="LightGray" FontWeight="Bold" FontSize="28" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontFamily="Century Gothic"/>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150" Name="InterfaceColumn"/>
@@ -32,7 +33,7 @@
                         <ColumnDefinition Width="22.5"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,0,0,2">
-                        <ListView Name="HornData" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="10" Foreground="#FF0B0B0C"  >
+                        <ListView Name="HornData" HorizontalContentAlignment="Center" FontSize="10" Foreground="#FF0B0B0C" Height="206" >
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Horn" Width="70" DisplayMemberBinding="{Binding Name}"/>
@@ -44,7 +45,21 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
-                        <Button Name="ExportButton" Content="Export to CSV" HorizontalAlignment="Right" Width="100" Margin="0,4" Click="Export_Click"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Name="TaskButton" Content="Task Log" Width="100" Margin="0,4,0,4" Click="Task_Click" HorizontalAlignment="Left"/>
+                            <Button Name="ExportButton" Content="Export to CSV" Grid.Column="6" HorizontalAlignment="Right" Width="100" Margin="0,4" Click="Export_Click"/>
+                            <Button Name="DeleteButton" Content="Delete Entry" Grid.Column="2" Margin="0,4" Click="DeleteButton_Click"/>
+                            <Button Name="ClearButton" Content="Clear List" Grid.Column="4" Margin="0,4" Click="ClearButton_Click"/>
+                        </Grid>
                     </StackPanel>
                     <TextBlock Name="TaskBlock" Grid.Row="2" Grid.Column="1" Background="White" Margin="10,10,10,10"/>
                 </Grid>
@@ -57,16 +72,15 @@
                         <RowDefinition Height="75"/>
                         <RowDefinition Height="20"/>
                     </Grid.RowDefinitions>
-                    <Button Content="Run" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="4" VerticalAlignment="Stretch" Margin="4,4" Click="Button_Click_Run" />
-                    <ProgressBar Name="connectProgress" Grid.Row="5" Margin="4,4" Visibility="Collapsed"/>
-
+                    <Button Name="runButton"  Content="Run" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="4" VerticalAlignment="Stretch" Margin="4,4" Click="Button_Click_Run" />
+                    <ProgressBar Name="connectProgress" Grid.Row="5" Margin="4,4" Visibility="Visible"/>
                     <TextBlock Name="ConnectText" Grid.Column="0" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Bottom" Text="Calibration" FontWeight="Bold" Foreground="LightGray"/>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1.5*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Content="Connect" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Connect"/>
+                        <Button Name="connectButton"  Content="Connect" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Connect"/>
                         <TextBlock Name="connectBox" Grid.Column="1" Background="Red" TextAlignment="Center" VerticalAlignment="Center" Text="Connected"/>
                     </Grid>
                     <TextBlock Name="CalibrationText" Grid.Column="0" Grid.Row="2" TextAlignment="Center" VerticalAlignment="Bottom" Text="Calibration" Grid.ColumnSpan="2" FontWeight="Bold" Foreground="LightGray"/>
@@ -83,10 +97,10 @@
                                 <RowDefinition Height="35"/>
                                 <RowDefinition Height="35"/>
                             </Grid.RowDefinitions>
-                            <Button Content="Open" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Open" Margin="0,2"/>
-                            <Button Content="Short" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Short" Margin="0,2"/>
-                            <Button Content="Load" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Load" Margin="0,2"/>
-                            <Button Content="Test" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="click_testButton" Margin="0,2"/>
+                            <Button Name="openButton" Content="Open" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Open" Margin="0,2"/>
+                            <Button Name="shortButton" Content="Short" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Short" Margin="0,2"/>
+                            <Button Name="loadButton" Content="Load" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Load" Margin="0,2"/>
+                            <Button Name="testButton" Content="Test" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="click_testButton" Margin="0,2"/>
                             <TextBlock Name="HornNameBlock" Text="Horn Name :" Grid.Row="4" Foreground="LightGray" FontWeight="Bold" VerticalAlignment="Center"/>
                         </Grid>
                         <Grid Grid.Column="1">
