@@ -14,7 +14,11 @@
                 <RowDefinition Height="7*" Name="InterfaceRow"/>
             </Grid.RowDefinitions>
 
-            <Label Content="B o d e   H o r n   C h a r a c t e r i s t i c s" Foreground="LightGray" FontWeight="Bold" FontSize="28" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontFamily="Century Gothic"/>
+            <Label Content="B o d e   H o r n   C h a r a c t e r i s t i c s" Foreground="LightGray" FontWeight="Bold" FontSize="28" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontFamily="Century Gothic">
+                <Label.Effect>
+                    <DropShadowEffect/>
+                </Label.Effect>
+            </Label>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150" Name="InterfaceColumn"/>
@@ -59,12 +63,15 @@
                             <Button Name="TaskButton" Content="Task Log" Width="100" Margin="0,4,0,4" Click="Task_Click" HorizontalAlignment="Left"/>
                             <Button Name="ExportButton" Content="Export to CSV" Grid.Column="6" HorizontalAlignment="Right" Width="100" Margin="0,4" Click="Export_Click"/>
                             <Button Name="DeleteButton" Content="Delete Entry" Grid.Column="2" Margin="0,4" Click="DeleteButton_Click"/>
-                            <Button Name="ClearButton" Content="Clear List" Grid.Column="4" Margin="0,4" Click="ClearButton_Click"/>
+                            <Button Name="ClearButton" Content="Clear List" Grid.Column="4" Margin="0,4,58,0" Click="ClearButton_Click" Grid.ColumnSpan="2" Height="20" VerticalAlignment="Top"/>
                         </Grid>
                     </StackPanel>
                     <TextBlock Name="TaskBlock" Grid.Row="2" Grid.Column="1" Background="White" Margin="10,10,10,10"/>
                 </Grid>
                 <Grid Grid.Column="0">
+                    <Grid.Style>
+                        <Style/>
+                    </Grid.Style>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="30"/>
@@ -74,7 +81,11 @@
                         <RowDefinition Height="20"/>
                     </Grid.RowDefinitions>
                     <Button Name="runButton"  Content="Run" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="4" VerticalAlignment="Stretch" Margin="4,4" Click="Button_Click_Run" />
-                    <ProgressBar Name="connectProgress" Grid.Row="5" Margin="4,4" Visibility="Visible"/>
+                    <ProgressBar Name="connectProgress" Grid.Row="5" Margin="4,4" Visibility="Visible" IsIndeterminate="True" ValueChanged="connectProgress_ValueChanged" Background="#FFE6E6E6" VerticalAlignment="Stretch" Foreground="#FF06B025" >
+                        <ProgressBar.Effect>
+                            <DropShadowEffect/>
+                        </ProgressBar.Effect>
+                    </ProgressBar>
                     <TextBlock Name="ConnectText" Grid.Column="0" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Bottom" Text="Calibration" FontWeight="Bold" Foreground="LightGray"/>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>

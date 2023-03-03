@@ -219,9 +219,11 @@ namespace BodeGUI
             try
             {
                 MessageBoxResult result = MessageBox.Show("Are you sure you want to clear data?", "Application Shutdown Sample", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                //ev.Cancel = (result == MessageBoxResult.No);
-                horn_list.Clear();
-                index = 1;
+                if (result == MessageBoxResult.Yes)                     //check to make sure the user really wants to clear data
+                {
+                    horn_list.Clear();
+                    index = 1;
+                }
             }
             catch (Exception ex)
             {
@@ -252,5 +254,6 @@ namespace BodeGUI
             }
 
         }
+
     }
 }

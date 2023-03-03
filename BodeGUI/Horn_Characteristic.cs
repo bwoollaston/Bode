@@ -10,6 +10,8 @@ using OmicronLab.VectorNetworkAnalysis.AutomationInterface.Interfaces.Measuremen
 using OmicronLab.VectorNetworkAnalysis.AutomationInterface.Enumerations;
 using OmicronLab.VectorNetworkAnalysis.AutomationInterface.DataTypes;
 using Microsoft.Win32;
+using System.Collections.ObjectModel;
+
 
 namespace BodeGUI
 {
@@ -23,6 +25,14 @@ namespace BodeGUI
             Name = string.Empty;
             Description = string.Empty;
             IsTaskSuccessful = false;
+            var ReaderOut = new Dictionary<string,string>(){ 
+                {"Connect","Bode Connection Please wait" },
+                {"Open", "Performing Open Calibration" },
+                {"Short", "Perfroming Short Calibration" },
+                {"Load", "Performing Load Calibration" },
+                {"Run", "Performing Test Please wait" },
+                {"Export", "Exporting to CSV"},
+                {"Ready", "Ready to collect data" } };
         }
     }
     public class Function
