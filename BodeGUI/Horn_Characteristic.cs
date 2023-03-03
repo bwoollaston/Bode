@@ -129,7 +129,7 @@ namespace BodeGUI
             double cap = measurement.Results.CsAt(0);
 
             /* **************** Debug this line ************* */
-            horn_data.Capacitance = Math.Round(cap / 1000.0, 3, MidpointRounding.AwayFromZero);
+            horn_data.Capacitance = Math.Round(cap *1e12, 3, MidpointRounding.AwayFromZero);
 
         }
 
@@ -161,10 +161,10 @@ namespace BodeGUI
             }
             horn_data.Resistance = measurement.Results.MagnitudeAt(0, MagnitudeUnit.Lin);
         }
-        public bool IsBodeConnected()
-        {
-            if(auto.)
-        }
+        //public bool IsBodeConnected()
+        //{
+        //    if(auto.)
+        //}
         /* Disconnects Bode100 device from computer */
         public void Disconnect()
         {

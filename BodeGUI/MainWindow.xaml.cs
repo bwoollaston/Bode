@@ -42,7 +42,7 @@ namespace BodeGUI
                 }
                 else
                 {
-
+                    programLoadingUpdate();
                 }
             }
         }
@@ -218,6 +218,8 @@ namespace BodeGUI
         {
             try
             {
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to clear data?", "Application Shutdown Sample", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                //ev.Cancel = (result == MessageBoxResult.No);
                 horn_list.Clear();
                 index = 1;
             }
