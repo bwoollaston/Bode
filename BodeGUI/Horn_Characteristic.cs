@@ -20,20 +20,23 @@ namespace BodeGUI
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsTaskSuccessful { get; set; }
+        public Dictionary<string, string> ReaderOut { get; set; }
         public TaskLog()
         {
             Name = string.Empty;
             Description = string.Empty;
             IsTaskSuccessful = false;
-            var ReaderOut = new Dictionary<string,string>(){ 
-                {"Connect","Bode Connection Please wait" },
+            ReaderOut = new Dictionary<string, string>
+            { {"Initialize","Waiting to connect bode, make sure bode100 is connected to computer and Bode Analyzer Suite app is closed before connecting" },
+                {"Connecting","Bode Connecting Please wait" },
+                {"ConnectFailed","Bode connection failed, make sure bode100 is connected to computer and Bode Analyzer Suite app is closed before connecting" },
                 {"Open", "Performing Open Calibration" },
                 {"Short", "Perfroming Short Calibration" },
                 {"Load", "Performing Load Calibration" },
                 {"Run", "Performing Test Please wait" },
                 {"Export", "Exporting to CSV"},
                 {"Ready", "Ready to collect data" } };
-        }
+    }
     }
     public class Function
     {

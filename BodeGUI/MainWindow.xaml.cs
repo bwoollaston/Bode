@@ -27,7 +27,6 @@ namespace BodeGUI
     public partial class MainWindow : Window
     {
         string txt = "string";
-        double progbarwidth = 142;
         int clk = 0;
         int index = 1;
         public bool IsProgLoading                                           //Flag indicating whether a task is in progress
@@ -36,23 +35,28 @@ namespace BodeGUI
             set
             {
                 _isProgLoading = value;
-                if(_isProgLoading == true)
-                {
-                    programLoadingUpdate();
-                }
-                else
-                {
-                    programLoadingUpdate();
-                }
+                programLoadingUpdate();
             }
         }
         private bool _isProgLoading;
         public Horn_Characteristic horn_Characteristic = new();             //Instance of class used to interact with bode automation interface
-        public ObservableCollection<TaskLog> taskLogs = new();              //Log of successful and unsuccessful tasks
+        //public ObservableCollection<TaskLog> taskLogs = new();              //Log of successful and unsuccessful tasks
         public ObservableCollection<Data> horn_list = new();                //Data list to be written to window and exported to csv
+        public string ComText
+        {
+            get { return _comText; }
+            set
+            {
+                _comText = value;
+                UpdateComText();
+            }
+        }
+        private string _comText;
         public MainWindow()
         {
+            ComText = "Text";
             InitializeComponent();
+            this.DataContext = this;
         }
 
         /* Runs frequency sweep and presents data in form of a table */
@@ -95,22 +99,18 @@ namespace BodeGUI
         /* Searches for and connects to first availible bode100 else presents error */
         private void Button_Click_Connect(object sender, RoutedEventArgs e)
         {
-            connectProgress.Visibility = Visibility.Visible;
-
             try
             {
                 IsProgLoading = true;
                 horn_Characteristic.Connect(); 
-                connectProgress.Visibility = Visibility.Hidden;
                 connectBox.Background = new SolidColorBrush(Colors.Green);
-                IsProgLoading = false;
             }
             catch(Exception ex)
             {
-                connectProgress.Visibility = Visibility.Hidden;
+                connectBox.Background = new SolidColorBrush(Colors.Red);
                 MessageBox.Show("Bode not Connected", "Exception Sample", MessageBoxButton.OK);
             }
-
+            IsProgLoading = false;
         }
 
         /* When checking caliration selecting test button returns the magnitude of impeadance and presents on screen */
@@ -151,7 +151,6 @@ namespace BodeGUI
         private void Button_Click_Open(object sender, RoutedEventArgs e)
         {
             openBox.Background = new SolidColorBrush(Colors.Red);
-            connectProgress.Visibility = Visibility.Visible;
             try
             {
                 horn_Characteristic.OpenCal();
@@ -161,13 +160,11 @@ namespace BodeGUI
             {
                 MessageBox.Show("Unable to perform open test", "Exception Sample", MessageBoxButton.OK);
             }
-            connectProgress.Visibility = Visibility.Collapsed;
         }
 
         private void Button_Click_Short(object sender, RoutedEventArgs e)
         {
             shortBox.Background = new SolidColorBrush(Colors.Red);
-            connectProgress.Width = progbarwidth;
             try
             {
                 horn_Characteristic.ShortCal();
@@ -177,13 +174,11 @@ namespace BodeGUI
             {
                 MessageBox.Show("Unable to perform short test", "Exception Sample", MessageBoxButton.OK);
             }
-            connectProgress.Width = 0;
         }
 
         private void Button_Click_Load(object sender, RoutedEventArgs e)
         {
             shortBox.Background = new SolidColorBrush(Colors.Red);
-            connectProgress.Visibility = Visibility.Visible;
             try
             {
                 horn_Characteristic.ShortCal();
@@ -193,7 +188,6 @@ namespace BodeGUI
             {
                 MessageBox.Show("Unable to perform short test", "Exception Sample", MessageBoxButton.OK);
             }
-            connectProgress.Visibility = Visibility.Collapsed;
         }
 
         private void Task_Click(object sender, RoutedEventArgs e)
@@ -253,6 +247,10 @@ namespace BodeGUI
                 testButton.IsEnabled    = true;
             }
 
+        }
+        private void UpdateComText()
+        {
+            //TaskBlock.Text = "Enter Text Here";
         }
 
     }

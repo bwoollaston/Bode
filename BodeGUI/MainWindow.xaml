@@ -66,7 +66,7 @@
                             <Button Name="ClearButton" Content="Clear List" Grid.Column="4" Margin="0,4,58,0" Click="ClearButton_Click" Grid.ColumnSpan="2" Height="20" VerticalAlignment="Top"/>
                         </Grid>
                     </StackPanel>
-                    <TextBlock Name="TaskBlock" Grid.Row="2" Grid.Column="1" Background="White" Margin="10,10,10,10"/>
+                    <TextBlock Name="TaskBlock" Grid.Row="2" Grid.Column="1" Background="White" Margin="10,10,10,10" Text=""/>
                 </Grid>
                 <Grid Grid.Column="0">
                     <Grid.Style>
@@ -80,12 +80,19 @@
                         <RowDefinition Height="75"/>
                         <RowDefinition Height="20"/>
                     </Grid.RowDefinitions>
-                    <Button Name="runButton"  Content="Run" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="4" VerticalAlignment="Stretch" Margin="4,4" Click="Button_Click_Run" />
-                    <ProgressBar Name="connectProgress" Grid.Row="5" Margin="4,4" Visibility="Visible" IsIndeterminate="True" ValueChanged="connectProgress_ValueChanged" Background="#FFE6E6E6" VerticalAlignment="Stretch" Foreground="#FF06B025" >
-                        <ProgressBar.Effect>
-                            <DropShadowEffect/>
-                        </ProgressBar.Effect>
-                    </ProgressBar>
+                    <StackPanel Grid.Row="4">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.5*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Name="HornNameBlock" Text="Horn Name :" Grid.Column="0" Foreground="LightGray" FontWeight="Bold" VerticalAlignment="Center"/>
+                            <TextBox Name="HornNameBox" Grid.Column="1" Background="White" TextAlignment="Right" VerticalAlignment="Center" Text=""/>
+                        </Grid>
+                        <Button Name="runButton"  Content="Run" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="4" VerticalAlignment="Stretch" Margin="0,4" Height="30" Click="Button_Click_Run" />
+                        <ProgressBar Name="Progress" IsIndeterminate="True" Height="10"/>
+                    </StackPanel>
+                    <TextBlock Name="taskReader" Text="Connect Bode to Continue" Grid.Row="5" Background="White" TextAlignment="Center"/>
                     <TextBlock Name="ConnectText" Grid.Column="0" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Bottom" Text="Calibration" FontWeight="Bold" Foreground="LightGray"/>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
@@ -113,7 +120,6 @@
                             <Button Name="shortButton" Content="Short" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Short" Margin="0,2"/>
                             <Button Name="loadButton" Content="Load" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Button_Click_Load" Margin="0,2"/>
                             <Button Name="testButton" Content="Test" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="click_testButton" Margin="0,2"/>
-                            <TextBlock Name="HornNameBlock" Text="Horn Name :" Grid.Row="4" Foreground="LightGray" FontWeight="Bold" VerticalAlignment="Center"/>
                         </Grid>
                         <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
@@ -127,7 +133,6 @@
                             <TextBlock Name="shortBox" Grid.Row="1" Background="Red" TextAlignment="Center" VerticalAlignment="Center" Text="Ready" Margin="0,2"/>
                             <TextBlock Name="loadBox" Grid.Row="2" Background="Red" TextAlignment="Center" VerticalAlignment="Center" Text="Ready" Margin="0,2"/>
                             <TextBox Name="testBox" Grid.Row="3" Background="White" TextAlignment="Right" VerticalAlignment="Center" Text="Ω"/>
-                            <TextBox Name="HornNameBox" Grid.Row="4" Background="White" TextAlignment="Right" VerticalAlignment="Center" Text=""/>
                         </Grid>
                     </Grid>
                 </Grid>
