@@ -70,7 +70,7 @@ namespace BodeGUI
             }
             horn_list.Add(new Data()
             {
-                Index = index,
+                //Index = horn_Characteristic.horn_data.Index,
                 Name = horn_Characteristic.horn_data.Name,
                 Resfreq = horn_Characteristic.horn_data.Resfreq,
                 Antifreq = horn_Characteristic.horn_data.Antifreq,
@@ -96,6 +96,7 @@ namespace BodeGUI
         private void Button_Click_Connect(object sender, RoutedEventArgs e)
         {
             connectProgress.Visibility = Visibility.Visible;
+
             try
             {
                 IsProgLoading = true;
@@ -207,7 +208,10 @@ namespace BodeGUI
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-
+            while(HornData.SelectedItems.Count > 0)
+            {
+                horn_list.Remove((Data)HornData.SelectedItem);
+            }
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
@@ -215,7 +219,6 @@ namespace BodeGUI
             try
             {
                 horn_list.Clear();
-                HornData.Items.Clear();
                 index = 1;
             }
             catch (Exception ex)

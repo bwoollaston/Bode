@@ -36,7 +36,8 @@
                         <ListView Name="HornData" HorizontalContentAlignment="Center" FontSize="10" Foreground="#FF0B0B0C" Height="206" >
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Horn" Width="70" DisplayMemberBinding="{Binding Name}"/>
+                                    <GridViewColumn Header="#" Width="10" DisplayMemberBinding="{Binding Index}"/>
+                                    <GridViewColumn Header="Horn" Width="60" DisplayMemberBinding="{Binding Name}"/>
                                     <GridViewColumn Header="Capacitance (pF)" Width="100"   DisplayMemberBinding="{Binding Path=Capacitance}"/>
                                     <GridViewColumn Header="Res Frequency (kHz)" Width="100" DisplayMemberBinding="{Binding Resfreq}"/>
                                     <GridViewColumn Header="Anti Frequency (kHz)" Width="100"  DisplayMemberBinding="{Binding Antifreq}"/>

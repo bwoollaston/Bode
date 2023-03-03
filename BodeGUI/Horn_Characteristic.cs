@@ -161,7 +161,11 @@ namespace BodeGUI
             }
             horn_data.Resistance = measurement.Results.MagnitudeAt(0, MagnitudeUnit.Lin);
         }
-
+        public bool IsBodeConnected()
+        {
+            if(auto.)
+        }
+        /* Disconnects Bode100 device from computer */
         public void Disconnect()
         {
             if (bode != null) bode.ShutDown();
