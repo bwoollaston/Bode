@@ -90,7 +90,7 @@
                             <TextBox Name="HornNameBox" Grid.Column="1" Background="White" TextAlignment="Right" VerticalAlignment="Center" Text=""/>
                         </Grid>
                         <Button Name="runButton"  Content="Run" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="4" VerticalAlignment="Stretch" Margin="0,4" Height="30" Click="Button_Click_Run" />
-                        <ProgressBar Name="Progress" IsIndeterminate="True" Height="10"/>
+                        <ProgressBar Name="Progress" IsIndeterminate="True" Height="10" Visibility="Hidden"/>
                     </StackPanel>
                     <TextBlock Name="taskReader" Text="Connect Bode to Continue" Grid.Row="5" Background="White" TextAlignment="Center"/>
                     <TextBlock Name="ConnectText" Grid.Column="0" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Bottom" Text="Calibration" FontWeight="Bold" Foreground="LightGray"/>

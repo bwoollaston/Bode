@@ -40,23 +40,12 @@ namespace BodeGUI
         }
         private bool _isProgLoading;
         public Horn_Characteristic horn_Characteristic = new();             //Instance of class used to interact with bode automation interface
-        //public ObservableCollection<TaskLog> taskLogs = new();              //Log of successful and unsuccessful tasks
         public ObservableCollection<Data> horn_list = new();                //Data list to be written to window and exported to csv
-        public string ComText
-        {
-            get { return _comText; }
-            set
-            {
-                _comText = value;
-                UpdateComText();
-            }
-        }
+
         private string _comText;
         public MainWindow()
         {
-            ComText = "Text";
             InitializeComponent();
-            this.DataContext = this;
         }
 
         /* Runs frequency sweep and presents data in form of a table */
@@ -247,10 +236,6 @@ namespace BodeGUI
                 testButton.IsEnabled    = true;
             }
 
-        }
-        private void UpdateComText()
-        {
-            //TaskBlock.Text = "Enter Text Here";
         }
 
     }
