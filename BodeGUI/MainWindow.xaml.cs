@@ -255,5 +255,21 @@ namespace BodeGUI
 
         }
 
+        private void Threading()
+        {
+            System.Threading.Tasks.Task.Factory.StartNew(() =>
+            {
+                return this.horn_Characteristic.Connect();
+            }).ContinueWith(t =>
+            {
+                MessageBox.Show(t.Result);
+            }, System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        private void UpdateComText()
+        {
+            //TaskBlock.Text = "Enter Text Here";
+        }
+
     }
 }
