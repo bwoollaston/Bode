@@ -27,7 +27,6 @@ namespace BodeGUI
     public partial class MainWindow : Window
     {
         string txt = "string";
-        double progbarwidth = 142;
         int clk = 0;
         int index = 1;
         public bool IsProgLoading                                           //Flag indicating whether a task is in progress
@@ -56,13 +55,14 @@ namespace BodeGUI
         }
 
         /* Runs frequency sweep and presents data in form of a table */
-        private void Button_Click_Run(object sender, RoutedEventArgs e)
+        private async void Button_Click_Run(object sender, RoutedEventArgs e)
         {
             txt = HornNameBox.Text;
             horn_Characteristic.horn_data.Name = txt;
             try
             {
-                horn_Characteristic.Sweep();
+                IsProgLoading = true;
+                await Task.Run(() => horn_Characteristic.Sweep());
             }
             catch (Exception ex)
             {
@@ -80,6 +80,7 @@ namespace BodeGUI
             });
             HornData.ItemsSource = horn_list;
             index += 1;
+            IsProgLoading=false;
 
         }
 
@@ -95,46 +96,50 @@ namespace BodeGUI
         /* Searches for and connects to first availible bode100 else presents error */
         private async void Button_Click_Connect(object sender, RoutedEventArgs e)
         {
-            connectProgress.Visibility = Visibility.Visible;
-
             try
             {
                 IsProgLoading = true;
-                await horn_Characteristic.Connect();
-                connectProgress.Visibility = Visibility.Hidden;
+                await Task.Run(() => horn_Characteristic.Connect());
                 connectBox.Background = new SolidColorBrush(Colors.Green);
-                IsProgLoading = false;
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                connectProgress.Visibility = Visibility.Hidden;
                 MessageBox.Show("Bode not Connected", "Exception Sample", MessageBoxButton.OK);
             }
-
+            IsProgLoading = false;
         }
 
         /* When checking caliration selecting test button returns the magnitude of impeadance and presents on screen */
-        private void click_testButton(object sender, RoutedEventArgs e)
+        private async void click_testButton(object sender, RoutedEventArgs e)
         {
             try
             {
-                horn_Characteristic.TestCal();
-                double resistance = horn_Characteristic.horn_data.Resistance;
-                testBox.Text = resistance.ToString("000.0") + " Ω";
+                IsProgLoading = true;
+                await Task.Run(() =>
+                {
+                    horn_Characteristic.TestCal();
+                    double resistance = horn_Characteristic.horn_data.Resistance;
+                    testBox.Text = resistance.ToString("000.0") + " Ω";
+                });
+                //horn_Characteristic.TestCal();
+                //double resistance = horn_Characteristic.horn_data.Resistance;
+                //testBox.Text = resistance.ToString("000.0") + " Ω";
             }
             catch(Exception ex)
             {
                 MessageBox.Show("No Bode connected", "Exception Sample", MessageBoxButton.OK);
             }
-
+            IsProgLoading = false;
         }
 
         /* Exports data form horn_list to desktop directory named "bodeData" */
-        private void Export_Click(object sender, RoutedEventArgs e)
+        private async void Export_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                string fileName = horn_Characteristic.ExportPath();
+                IsProgLoading = true;
+                string fileName = await Task.Run(() => horn_Characteristic.ExportPath());
                 using (var writer = new StreamWriter(fileName))
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                 {
@@ -145,63 +150,58 @@ namespace BodeGUI
             {
                 MessageBox.Show("Unable to write csv", "Exception Sample", MessageBoxButton.OK);
             }
-
+            IsProgLoading = false;
         }
 
-        private void Button_Click_Open(object sender, RoutedEventArgs e)
+        private async void Button_Click_Open(object sender, RoutedEventArgs e)
         {
             openBox.Background = new SolidColorBrush(Colors.Red);
-            connectProgress.Visibility = Visibility.Visible;
             try
             {
-                horn_Characteristic.OpenCal();
+                IsProgLoading = true;
+                await Task.Run(() => horn_Characteristic.OpenCal());
                 openBox.Background = new SolidColorBrush(Colors.Green);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Unable to perform open test", "Exception Sample", MessageBoxButton.OK);
             }
-            connectProgress.Visibility = Visibility.Collapsed;
+            IsProgLoading = false;
         }
 
-        private void Button_Click_Short(object sender, RoutedEventArgs e)
+        private async void Button_Click_Short(object sender, RoutedEventArgs e)
         {
             shortBox.Background = new SolidColorBrush(Colors.Red);
-            connectProgress.Width = progbarwidth;
             try
             {
-                horn_Characteristic.ShortCal();
+                IsProgLoading = true;
+                await Task.Run(() => horn_Characteristic.ShortCal());
                 shortBox.Background = new SolidColorBrush(Colors.Green);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Unable to perform short test", "Exception Sample", MessageBoxButton.OK);
             }
-            connectProgress.Width = 0;
+            IsProgLoading = false;
         }
 
-        private void Button_Click_Load(object sender, RoutedEventArgs e)
+        private async void Button_Click_Load(object sender, RoutedEventArgs e)
         {
-            shortBox.Background = new SolidColorBrush(Colors.Red);
-            connectProgress.Visibility = Visibility.Visible;
+            loadBox.Background = new SolidColorBrush(Colors.Red);
             try
             {
-                horn_Characteristic.ShortCal();
-                shortBox.Background = new SolidColorBrush(Colors.Green);
+                IsProgLoading = true;
+                await Task.Run(() => horn_Characteristic.ShortCal());
+                loadBox.Background = new SolidColorBrush(Colors.Green);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Unable to perform short test", "Exception Sample", MessageBoxButton.OK);
             }
-            connectProgress.Visibility = Visibility.Collapsed;
+            IsProgLoading = false;
         }
 
         private void Task_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void EventInProgress()
         {
 
         }
@@ -234,6 +234,7 @@ namespace BodeGUI
         {
             if (IsProgLoading == true)
             {
+                connectProgress.Visibility = Visibility.Visible;
                 runButton.IsEnabled     = false;
                 ClearButton.IsEnabled   = false;
                 connectButton.IsEnabled = false;
@@ -241,9 +242,13 @@ namespace BodeGUI
                 shortButton.IsEnabled   = false;
                 loadButton.IsEnabled    = false;
                 testButton.IsEnabled    = false;
+                DeleteButton.IsEnabled  = false;
+                TaskButton.IsEnabled    = false;
+                ExportButton.IsEnabled  = false;
             }
             if (IsProgLoading == false)
             {
+                connectProgress.Visibility = Visibility.Collapsed;
                 runButton.IsEnabled     = true;
                 ClearButton.IsEnabled   = true;
                 connectButton.IsEnabled = true;
@@ -251,19 +256,16 @@ namespace BodeGUI
                 shortButton.IsEnabled   = true;
                 loadButton.IsEnabled    = true;
                 testButton.IsEnabled    = true;
+                DeleteButton.IsEnabled  = true;
+                TaskButton.IsEnabled    = true;
+                ExportButton.IsEnabled  = true;
+
             }
-
-        }
-
-        private void Threading()
-        {
-            
         }
 
         private void UpdateComText()
         {
             //TaskBlock.Text = "Enter Text Here";
         }
-
     }
 }

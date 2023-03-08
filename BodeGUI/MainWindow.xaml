@@ -6,7 +6,7 @@
         xmlns:materialDesign="https://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:BodeGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Closing="ChildWindow_Closing" Background="#4B4646">
+        Title="MainWindow" Height="470" Width="800" Closing="ChildWindow_Closing" Background="#4B4646">
     <Border Visibility="Visible" BorderThickness="2" CornerRadius="8" Margin="10,10,10,10">
         <Grid Margin="0" Height="Auto">
             <Grid.RowDefinitions>
@@ -66,7 +66,27 @@
                             <Button Name="ClearButton" Content="Clear List" Grid.Column="4" Margin="0,4,58,0" Click="ClearButton_Click" Grid.ColumnSpan="2" Height="20" VerticalAlignment="Top"/>
                         </Grid>
                     </StackPanel>
-                    <TextBlock Name="TaskBlock" Grid.Row="2" Grid.Column="1" Background="White" Margin="10,10,10,10"/>
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="250"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Name="TaskBlock" Grid.Row="2" Grid.Column="0" Background="White" Margin="10,10,10,10"/>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Name="LowFreqTextBlock" Text="Low Sweep Frequency" FontWeight="DemiBold" Foreground="LightGray" Grid.Row="0" VerticalAlignment="Center"/>
+                            <TextBlock Name="HighFreqTextBlock" Text="High Sweep Frequency" FontWeight="DemiBold" Foreground="LightGray" Grid.Row="1" VerticalAlignment="Center"/>
+                            <TextBlock Name="BandwidthTextBlock" Text="Bandwidth" FontWeight="DemiBold" Foreground="LightGray" Grid.Row="2" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Grid>
                 </Grid>
                 <Grid Grid.Column="0">
                     <Grid.Style>
@@ -81,7 +101,7 @@
                         <RowDefinition Height="20"/>
                     </Grid.RowDefinitions>
                     <Button Name="runButton"  Content="Run" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="4" VerticalAlignment="Stretch" Margin="4,4" Click="Button_Click_Run" />
-                    <ProgressBar Name="connectProgress" Grid.Row="5" Margin="4,4" Visibility="Visible" IsIndeterminate="True" Background="#FFE6E6E6" VerticalAlignment="Stretch" Foreground="#FF06B025" >
+                    <ProgressBar Name="connectProgress" Grid.Row="5" Margin="4,4" Visibility="Collapsed" IsIndeterminate="True" Background="#FFE6E6E6" VerticalAlignment="Stretch" Foreground="#FF06B025" >
                         <ProgressBar.Effect>
                             <DropShadowEffect/>
                         </ProgressBar.Effect>
