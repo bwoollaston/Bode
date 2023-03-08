@@ -93,14 +93,14 @@ namespace BodeGUI
         }
 
         /* Searches for and connects to first availible bode100 else presents error */
-        private void Button_Click_Connect(object sender, RoutedEventArgs e)
+        private async void Button_Click_Connect(object sender, RoutedEventArgs e)
         {
             connectProgress.Visibility = Visibility.Visible;
 
             try
             {
                 IsProgLoading = true;
-                horn_Characteristic.Connect(); 
+                await horn_Characteristic.Connect();
                 connectProgress.Visibility = Visibility.Hidden;
                 connectBox.Background = new SolidColorBrush(Colors.Green);
                 IsProgLoading = false;
@@ -257,13 +257,7 @@ namespace BodeGUI
 
         private void Threading()
         {
-            System.Threading.Tasks.Task.Factory.StartNew(() =>
-            {
-                return this.horn_Characteristic.Connect();
-            }).ContinueWith(t =>
-            {
-                MessageBox.Show(t.Result);
-            }, System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext());
+            
         }
 
         private void UpdateComText()

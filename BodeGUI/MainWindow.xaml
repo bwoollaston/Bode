@@ -81,7 +81,7 @@
                         <RowDefinition Height="20"/>
                     </Grid.RowDefinitions>
                     <Button Name="runButton"  Content="Run" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="4" VerticalAlignment="Stretch" Margin="4,4" Click="Button_Click_Run" />
-                    <ProgressBar Name="connectProgress" Grid.Row="5" Margin="4,4" Visibility="Visible" IsIndeterminate="True" ValueChanged="connectProgress_ValueChanged" Background="#FFE6E6E6" VerticalAlignment="Stretch" Foreground="#FF06B025" >
+                    <ProgressBar Name="connectProgress" Grid.Row="5" Margin="4,4" Visibility="Visible" IsIndeterminate="True" Background="#FFE6E6E6" VerticalAlignment="Stretch" Foreground="#FF06B025" >
                         <ProgressBar.Effect>
                             <DropShadowEffect/>
                         </ProgressBar.Effect>
