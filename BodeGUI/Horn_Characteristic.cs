@@ -146,9 +146,9 @@ namespace BodeGUI
 
         }
 
-        /* Open,Short,Load called by consecutive clicks of the calibrate button */
         public void OpenCal()
         {
+            /* Bode Automation Suite method runs open calibration */
             ExecutionState state = measurement.Calibration.FullRange.ExecuteOpen();
         }
 
