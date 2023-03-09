@@ -27,7 +27,6 @@ namespace BodeGUI
     public partial class MainWindow : Window
     {
         string txt = "string";
-        int clk = 0;
         int index = 1;
         public bool IsProgLoading                                           //Flag indicating whether a task is in progress
         {
@@ -35,23 +34,40 @@ namespace BodeGUI
             set
             {
                 _isProgLoading = value;
-                if(_isProgLoading == true)
-                {
-                    programLoadingUpdate();
-                }
-                else
-                {
-                    programLoadingUpdate();
-                }
+                ProgramLoadingUpdate();
             }
         }
         private bool _isProgLoading;
+        /*  Variable that sets high sweep freq and gets default to start program */
+        public double lowSweepFreq
+        {
+            get { return horn_Characteristic.sweep_LOW; }
+            set
+            {
+                horn_Characteristic.sweep_LOW = value;
+                LowFreqTextBox.Text = Convert.ToString(value);
+            }
+        }
+        /* Variable that sets high sweep freq and gets default to start program */
+        public double highSweepFreq
+        {
+            get { return horn_Characteristic.sweep_HIGH; }
+            set
+            { 
+                horn_Characteristic.sweep_HIGH = value;
+                HighFreqTextBox.Text = Convert.ToString(value);
+            }
+        }
+
         public Horn_Characteristic horn_Characteristic = new();             //Instance of class used to interact with bode automation interface
         public ObservableCollection<TaskLog> taskLogs = new();              //Log of successful and unsuccessful tasks
         public ObservableCollection<Data> horn_list = new();                //Data list to be written to window and exported to csv
+
         public MainWindow()
         {
             InitializeComponent();
+            LowFreqTextBox.Text = lowSweepFreq.ToString();
+            HighFreqTextBox.Text = highSweepFreq.ToString();
         }
 
         /* Runs frequency sweep and presents data in form of a table */
@@ -122,9 +138,6 @@ namespace BodeGUI
                     double resistance = horn_Characteristic.horn_data.Resistance;
                     testBox.Text = resistance.ToString("000.0") + " Ω";
                 });
-                //horn_Characteristic.TestCal();
-                //double resistance = horn_Characteristic.horn_data.Resistance;
-                //testBox.Text = resistance.ToString("000.0") + " Ω";
             }
             catch(Exception ex)
             {
@@ -230,7 +243,7 @@ namespace BodeGUI
                 MessageBox.Show("Clear Failed", "Exception Sample", MessageBoxButton.OK);
             }
         }
-        private void programLoadingUpdate()
+        private void ProgramLoadingUpdate()
         {
             if (IsProgLoading == true)
             {
@@ -267,5 +280,36 @@ namespace BodeGUI
         {
             //TaskBlock.Text = "Enter Text Here";
         }
+        private void LowFreqTextBox_LostFocus_1(object sender, RoutedEventArgs e)
+        {
+            lowSweepFreq = Convert.ToDouble(LowFreqTextBox.Text);
+            if (lowSweepFreq >= highSweepFreq)
+            {
+                MessageBox.Show("High sweep frequency must be greater than low sweep frequency", "Exception Sample", MessageBoxButton.OK);
+                lowSweepFreq = highSweepFreq - 100;
+            }
+
+        }
+
+        private void HighFreqTextBox_LostFocus_1(object sender, RoutedEventArgs e)
+        {
+            highSweepFreq = Convert.ToDouble(HighFreqTextBox.Text);
+            if (highSweepFreq <= lowSweepFreq)
+            {
+                MessageBox.Show("High sweep frequency must be greater than low sweep frequency", "Exception Sample", MessageBoxButton.OK);
+                highSweepFreq = lowSweepFreq + 100;
+            }
+        }
+
+        private void LowFreqTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) LowFreqTextBox.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+        }
+
+        private void HighFreqTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) HighFreqTextBox.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+        }
+
     }
 }
