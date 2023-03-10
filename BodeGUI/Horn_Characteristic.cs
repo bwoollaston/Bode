@@ -38,16 +38,6 @@ namespace BodeGUI
                 {"Ready", "Ready to collect data" } };
     }
     }
-    public class Function
-    {
-        /* Linear interpolation */
-        public double inter(double x, double x1, double x2, double y1, double y2)
-        {
-            double y;
-            y = y1 + (x - x1) * ((y2 - y1) / (x2 - x1));
-            return (y);
-        }
-    }
 
     /* Standard orgization of data for measuring horn charateristics */
     public class Data
@@ -60,6 +50,7 @@ namespace BodeGUI
         public double Anti_impedance { get; set; }
         public double Capacitance { get; set; }
         public double Resistance { get; set; }
+        public double QualityFactor { get; set; }
 
         public Data()
         {
@@ -70,6 +61,7 @@ namespace BodeGUI
             Antifreq = 0;
             Res_impedance = 0;
             Anti_impedance = 0;
+            QualityFactor = 0;
         }
     }
     /* Main class with methods for measurements of horn characteristics */
@@ -83,11 +75,13 @@ namespace BodeGUI
         public int sweep_PTS { get; set; }
         public double sweep_LOW { get; set; }
         public double sweep_HIGH { get; set; }
+        public bool IsQF_Checked { get; set; }
         public Horn_Characteristic()
         {
             sweep_PTS = 201;
             sweep_LOW = 180000;
             sweep_HIGH = 190000;
+            IsQF_Checked = false;
         }
 
         /* Automatically searches for first availible bode100 device */
@@ -100,10 +94,10 @@ namespace BodeGUI
         /* Sweeps relevant frequencies for Bluesky pushmode piezo */
         public void Sweep()
         {
-            Function function = new Function();
+
+            /* Run sweeps to dtermine res and anti-res frequencies */
             measurement.ConfigureSweep(sweep_LOW, sweep_HIGH, sweep_PTS, SweepMode.Logarithmic);
             state = measurement.ExecuteMeasurement();
-
             if (state != ExecutionState.Ok)
             {
                 bode.ShutDown();
@@ -114,36 +108,42 @@ namespace BodeGUI
             horn_data.Resfreq = measurement.Results.CalculateFResQValues(false, true, FResQFormats.Magnitude).ResonanceFrequency;
             horn_data.Antifreq = measurement.Results.CalculateFResQValues(true, true, FResQFormats.Magnitude).ResonanceFrequency;
 
-            for (int i = 0; i < freq.Length; i++)
-            {
-                if (freq[i] < horn_data.Resfreq && freq[i + 1] >= horn_data.Resfreq)
-                {
-                    horn_data.Res_impedance = function.inter(horn_data.Resfreq, freq[i], freq[i + 1], impedance[i], impedance[i + 1]);
-                }
-                if (freq[i] < horn_data.Antifreq && freq[i + 1] >= horn_data.Antifreq)
-                {
-                    horn_data.Anti_impedance = function.inter(horn_data.Antifreq, freq[i], freq[i + 1], impedance[i], impedance[i + 1]);
-                }
-            }
-            horn_data.Resfreq = Math.Round(horn_data.Resfreq / 1000.0, 3, MidpointRounding.AwayFromZero);
-            horn_data.Antifreq = Math.Round(horn_data.Antifreq / 1000.0, 3, MidpointRounding.AwayFromZero);
-            horn_data.Res_impedance = Math.Round(horn_data.Res_impedance, 3, MidpointRounding.AwayFromZero);
-            horn_data.Anti_impedance = Math.Round(horn_data.Anti_impedance / 1000.0, 3, MidpointRounding.AwayFromZero);
-
-            measurement.ConfigureSinglePoint(1000);
+            /* Use data from CalcResFreq to measure impedance at resonance as single measurement */
+            measurement.ConfigureSinglePoint(horn_data.Resfreq);
             state = measurement.ExecuteMeasurement();
-
             if (state != ExecutionState.Ok)
             {
                 bode.ShutDown();
                 return;
             }
-            freq = measurement.Results.MeasurementFrequencies;
+            horn_data.Res_impedance = measurement.Results.MagnitudeAt(0, MagnitudeUnit.Lin);
+
+            /* Use data from CalcResFreq to measure impedance at anti-resonance as single measurement */
+            measurement.ConfigureSinglePoint(horn_data.Antifreq);
+            state = measurement.ExecuteMeasurement();
+            if (state != ExecutionState.Ok)
+            {
+                bode.ShutDown();
+                return;
+            }
+            horn_data.Anti_impedance = measurement.Results.MagnitudeAt(0, MagnitudeUnit.Lin);
+
+            /* Round data for GUI output */
+            horn_data.Resfreq = Math.Round(horn_data.Resfreq / 1000.0, 3, MidpointRounding.AwayFromZero);
+            horn_data.Antifreq = Math.Round(horn_data.Antifreq / 1000.0, 3, MidpointRounding.AwayFromZero);
+            horn_data.Res_impedance = Math.Round(horn_data.Res_impedance, 3, MidpointRounding.AwayFromZero);
+            horn_data.Anti_impedance = Math.Round(horn_data.Anti_impedance / 1000.0, 3, MidpointRounding.AwayFromZero);
+
+            /* Measure Capacitance value at 1000 Hz */
+            measurement.ConfigureSinglePoint(1000);
+            state = measurement.ExecuteMeasurement();
+            if (state != ExecutionState.Ok)
+            {
+                bode.ShutDown();
+                return;
+            }
             double cap = measurement.Results.CsAt(0);
-
-            /* **************** Debug this line ************* */
-            horn_data.Capacitance = Math.Round(cap *1e12, 3, MidpointRounding.AwayFromZero);
-
+            horn_data.Capacitance = Math.Round(cap * 1e12, 3, MidpointRounding.AwayFromZero);
         }
 
         public void OpenCal()
