@@ -72,7 +72,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="250"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Name="TaskBlock" Grid.Row="2" Grid.Column="0" Background="White" Margin="10,10,10,10"/>
+                        <TextBlock Name="TaskBlock" Grid.Row="2" Grid.Column="0" Background="White" Margin="0,6,10,6" TextWrapping="Wrap" Height="Auto"/>
                         <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>

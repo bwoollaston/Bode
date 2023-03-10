@@ -90,15 +90,31 @@ namespace BodeGUI
                 horn_Characteristic.IsQF_Checked = value;
             }
         }
+        public Dictionary<string, bool> CalStatus { get; set; }
         public Horn_Characteristic horn_Characteristic = new();             //Instance of class used to interact with bode automation interface
         public ObservableCollection<Data> horn_list = new();                //Data list to be written to window and exported to csv
+        public ObservableCollection<TaskLog> taskLogs = new();
+        private TaskLog reader = new();
+        public bool ConnectedStatus = false;
 
         public MainWindow()
         {
-            InitializeComponent();
-            LowFreqTextBox.Text = lowSweepFreq.ToString();
-            HighFreqTextBox.Text = highSweepFreq.ToString();
-            BandwidthTextBox.Text = RecieverBW.ToString();
+            try
+            {
+                InitializeComponent();
+                LowFreqTextBox.Text = lowSweepFreq.ToString();
+                HighFreqTextBox.Text = highSweepFreq.ToString();
+                BandwidthTextBox.Text = RecieverBW.ToString();
+                CalStatus = new Dictionary<string, bool> { { "open",false},{ "short",false},{ "load",false} };
+                taskLogs.Add(new TaskLog() { Name = "Initialize automation GUI", IsTaskSuccessful = true });
+                TaskBlock.Text = reader.ReaderOut["Initialize"];
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Initialization failed", "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+                taskLogs.Add(new TaskLog() { Name = "Initialize automation GUI", IsTaskSuccessful = false });
+            }
+
         }
 
         /* Runs frequency sweep and presents data in form of a table */
@@ -113,6 +129,7 @@ namespace BodeGUI
             }
             catch (Exception ex)
             {
+
                 MessageBox.Show("Bode not connected", "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             horn_list.Add(new Data()
@@ -146,14 +163,17 @@ namespace BodeGUI
         {
             try
             {
+                TaskBlock.Text = reader.ReaderOut["Connecting"];
                 IsProgLoading = true;
                 await Task.Run(() => horn_Characteristic.Connect());
                 connectBox.Background = new SolidColorBrush(Colors.Green);
-
+                ConnectedStatus = true;
             }
             catch (Exception ex)
             {
+                TaskBlock.Text = reader.ReaderOut["ConnectFailed"];
                 MessageBox.Show("Bode not Connected", "Exception Sample", MessageBoxButton.OK);
+                ConnectedStatus = false;
             }
             IsProgLoading = false;
         }
@@ -203,9 +223,11 @@ namespace BodeGUI
                 IsProgLoading = true;
                 await Task.Run(() => horn_Characteristic.OpenCal());
                 openBox.Background = new SolidColorBrush(Colors.Green);
+                CalStatus["open"] = true;
             }
             catch (Exception ex)
             {
+                CalStatus["open"] = false;
                 MessageBox.Show("Unable to perform open test", "Exception Sample", MessageBoxButton.OK);
             }
             IsProgLoading = false;
@@ -219,10 +241,12 @@ namespace BodeGUI
                 IsProgLoading = true;
                 await Task.Run(() => horn_Characteristic.ShortCal());
                 shortBox.Background = new SolidColorBrush(Colors.Green);
+                CalStatus["short"] = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Unable to perform short test", "Exception Sample", MessageBoxButton.OK);
+                CalStatus["short"] = false;
             }
             IsProgLoading = false;
         }
@@ -235,10 +259,12 @@ namespace BodeGUI
                 IsProgLoading = true;
                 await Task.Run(() => horn_Characteristic.ShortCal());
                 loadBox.Background = new SolidColorBrush(Colors.Green);
+                CalStatus["load"] = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Unable to perform short test", "Exception Sample", MessageBoxButton.OK);
+                CalStatus["load"] = false;
             }
             IsProgLoading = false;
         }
@@ -290,6 +316,13 @@ namespace BodeGUI
             }
             if (IsProgLoading == false)
             {
+                if (CalStatus["open"] && CalStatus["short"] && CalStatus["load"] && ConnectedStatus == true)
+                {
+                    TaskBlock.Text = reader.ReaderOut["Ready"];
+                } else if(CalStatus["open"] || CalStatus["short"] || CalStatus["load"] == false && ConnectedStatus)
+                {
+                    TaskBlock.Text = reader.ReaderOut["Calibrate"];
+                } 
                 connectProgress.Visibility = Visibility.Collapsed;
                 runButton.IsEnabled     = true;
                 ClearButton.IsEnabled   = true;

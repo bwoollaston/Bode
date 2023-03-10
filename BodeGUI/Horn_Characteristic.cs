@@ -30,6 +30,7 @@ namespace BodeGUI
             { {"Initialize","Waiting to connect bode, make sure bode100 is connected to computer and Bode Analyzer Suite app is closed before connecting" },
                 {"Connecting","Bode Connecting Please wait" },
                 {"ConnectFailed","Bode connection failed, make sure bode100 is connected to computer and Bode Analyzer Suite app is closed before connecting" },
+                {"Calibrate","Please run calibration procedure before making measurement" },
                 {"Open", "Performing Open Calibration" },
                 {"Short", "Perfroming Short Calibration" },
                 {"Load", "Performing Load Calibration" },
