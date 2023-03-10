@@ -73,6 +73,15 @@ namespace BodeGUI
                 HighFreqTextBox.Text = Convert.ToString(value);
             }
         }
+        public double RecieverBW
+        {
+            get { return horn_Characteristic.Bandwidth/1000; }
+            set
+            {
+                horn_Characteristic.Bandwidth = value * 1000;
+                BandwidthTextBox.Text = Convert.ToString(value);
+            }
+        }
         public bool QF_Checked
         {
             get { return horn_Characteristic.IsQF_Checked; }
@@ -89,6 +98,7 @@ namespace BodeGUI
             InitializeComponent();
             LowFreqTextBox.Text = lowSweepFreq.ToString();
             HighFreqTextBox.Text = highSweepFreq.ToString();
+            BandwidthTextBox.Text = RecieverBW.ToString();
         }
 
         /* Runs frequency sweep and presents data in form of a table */
@@ -360,6 +370,11 @@ namespace BodeGUI
         private void HornData_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             DataWidth = ListViewDataColumn.ActualWidth;
+        }
+
+        private void BandwidthTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            RecieverBW = Convert.ToDouble(BandwidthTextBox.Text);
         }
     }
 }

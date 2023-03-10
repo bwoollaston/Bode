@@ -75,12 +75,14 @@ namespace BodeGUI
         public int sweep_PTS { get; set; }
         public double sweep_LOW { get; set; }
         public double sweep_HIGH { get; set; }
+        public double Bandwidth { get; set; }
         public bool IsQF_Checked { get; set; }
         public Horn_Characteristic()
         {
             sweep_PTS = 201;
             sweep_LOW = 180000;
             sweep_HIGH = 190000;
+            Bandwidth = 300000;
             IsQF_Checked = false;
         }
 
@@ -96,6 +98,7 @@ namespace BodeGUI
         {
 
             /* Run sweeps to dtermine res and anti-res frequencies */
+            measurement.ReceiverBandwidth = (ReceiverBandwidth)Bandwidth;
             measurement.ConfigureSweep(sweep_LOW, sweep_HIGH, sweep_PTS, SweepMode.Logarithmic);
             state = measurement.ExecuteMeasurement();
             if (state != ExecutionState.Ok)
@@ -129,12 +132,12 @@ namespace BodeGUI
             }
             horn_data.Anti_impedance = measurement.Results.MagnitudeAt(0, MagnitudeUnit.Lin);
 
-
             /* Round data for GUI output */
             horn_data.Resfreq = Math.Round(horn_data.Resfreq / 1000.0, 3, MidpointRounding.AwayFromZero);
             horn_data.Antifreq = Math.Round(horn_data.Antifreq / 1000.0, 3, MidpointRounding.AwayFromZero);
             horn_data.Res_impedance = Math.Round(horn_data.Res_impedance, 3, MidpointRounding.AwayFromZero);
             horn_data.Anti_impedance = Math.Round(horn_data.Anti_impedance / 1000.0, 3, MidpointRounding.AwayFromZero);
+            horn_data.QualityFactor = Math.Round(horn_data.QualityFactor,3,MidpointRounding.AwayFromZero);
 
             /* Measure Capacitance value at 1000 Hz */
             measurement.ConfigureSinglePoint(1000);

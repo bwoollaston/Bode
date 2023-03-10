@@ -90,7 +90,7 @@
                             <TextBlock Name="BandwidthTextBlock" Text="Reciever Bandwidth" FontWeight="DemiBold" Foreground="LightGray" Grid.Row="2" VerticalAlignment="Center" Height="15"/>
                             <TextBox Name="LowFreqTextBox" Grid.Column="1" Grid.Row="0" Margin="4,4,0,4" LostFocus="LowFreqTextBox_LostFocus_1" KeyUp="LowFreqTextBox_KeyUp"/>
                             <TextBox Name="HighFreqTextBox" Grid.Column="1" Grid.Row="1" Margin="4,4,0,4" LostFocus="HighFreqTextBox_LostFocus_1" KeyUp="HighFreqTextBox_KeyUp"/>
-                            <TextBox Name="BandwidthTextBox" Grid.Column="1" Grid.Row="2" Margin="4,4,0,4" Text="Does Nothing Yet" FontSize="10"/>
+                            <TextBox Name="BandwidthTextBox" Grid.Column="1" Grid.Row="2" Margin="4,4,0,4" FontSize="10" LostFocus="BandwidthTextBox_LostFocus"/>
                             <TextBox Name="LowFreqUnitsBox" Grid.Column="2" Grid.Row="0" Margin="0,4" Text="Hz"/>
                             <TextBox Name="HighFreqUnitsBox" Grid.Column="2" Grid.Row="1" Margin="0,4" Text="Hz"/>
                             <TextBox Name="BandwidthUnitsBox" Grid.Column="2" Grid.Row="2" Margin="0,4" Text="Hz"/>
