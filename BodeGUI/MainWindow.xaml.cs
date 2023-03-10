@@ -19,8 +19,8 @@ using System.ComponentModel.Composition;
 using CsvHelper;
 using System.Globalization;
 using System.Diagnostics;
-using MaterialDesignThemes;
-using MaterialDesignColors;
+//using MaterialDesignThemes;
+//using MaterialDesignColors;
 
 namespace BodeGUI
 {
