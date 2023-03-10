@@ -34,7 +34,7 @@ namespace BodeGUI
             set
             {
                 _isProgLoading = value;
-                ProgramLoadingUpdate();
+                ProgramLoadingUpdate();                                     //Flag triggers program loading event
             }
         }
         private bool _isProgLoading;

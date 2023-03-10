@@ -174,15 +174,13 @@ namespace BodeGUI
             }
             horn_data.Resistance = measurement.Results.MagnitudeAt(0, MagnitudeUnit.Lin);
         }
-        //public bool IsBodeConnected()
-        //{
-        //    if(auto.)
-        //}
+
         /* Disconnects Bode100 device from computer */
         public void Disconnect()
         {
-            if (bode != null) bode.ShutDown();
+            if (bode != null) bode.ShutDown();      //If bode is connectect run bode disconnect method
         }
+
         /* Eport path opens file explorer and returns a path to save data entered by user */
         public string ExportPath()
         {
