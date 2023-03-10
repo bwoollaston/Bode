@@ -28,6 +28,19 @@ namespace BodeGUI
     {
         string txt = "string";
         int index = 1;
+        public double DataWidth
+        {
+            get { return ListViewDataColumn.ActualWidth; }
+            set { data2width = value - 70; }
+        }
+        double data2width
+        {
+            get {return DataWidth-70; }
+            set
+            {
+                ColumnResize(value);
+            }
+        }
         public bool IsProgLoading                                           //Flag indicating whether a task is in progress
         {
             get { return _isProgLoading; }
@@ -38,6 +51,7 @@ namespace BodeGUI
             }
         }
         private bool _isProgLoading;
+
         /*  Variable that sets high sweep freq and gets default to start program */
         public double lowSweepFreq
         {
@@ -48,6 +62,7 @@ namespace BodeGUI
                 LowFreqTextBox.Text = Convert.ToString(value);
             }
         }
+
         /* Variable that sets high sweep freq and gets default to start program */
         public double highSweepFreq
         {
@@ -58,7 +73,14 @@ namespace BodeGUI
                 HighFreqTextBox.Text = Convert.ToString(value);
             }
         }
-
+        public bool QF_Checked
+        {
+            get { return horn_Characteristic.IsQF_Checked; }
+            set
+            {
+                horn_Characteristic.IsQF_Checked = value;
+            }
+        }
         public Horn_Characteristic horn_Characteristic = new();             //Instance of class used to interact with bode automation interface
         public ObservableCollection<TaskLog> taskLogs = new();              //Log of successful and unsuccessful tasks
         public ObservableCollection<Data> horn_list = new();                //Data list to be written to window and exported to csv
@@ -92,7 +114,8 @@ namespace BodeGUI
                 Antifreq = horn_Characteristic.horn_data.Antifreq,
                 Res_impedance = horn_Characteristic.horn_data.Res_impedance,
                 Anti_impedance = horn_Characteristic.horn_data.Anti_impedance,
-                Capacitance = horn_Characteristic.horn_data.Capacitance
+                Capacitance = horn_Characteristic.horn_data.Capacitance,
+                QualityFactor = horn_Characteristic.horn_data.QualityFactor
             });
             HornData.ItemsSource = horn_list;
             index += 1;
@@ -311,5 +334,36 @@ namespace BodeGUI
             if (e.Key == Key.Enter) HighFreqTextBox.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
         }
 
+        private void QFCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ColumnResize(data2width);
+        }
+        private void ColumnResize(double value)
+        { 
+                if (QFCheckBox.IsChecked == true)
+                {
+                    CapColumn.Width = value / 6;
+                    ResColumn.Width = value / 6;
+                    AntiColumn.Width = value / 6;
+                    ImpColumn.Width = value / 6;
+                    AntiImpColumn.Width = value / 6;
+                    QFColumn.Width = value / 6;
+                }
+                else
+                {
+                    CapColumn.Width = value / 5;
+                    ResColumn.Width = value / 5;
+                    AntiColumn.Width = value / 5;
+                    ImpColumn.Width = value / 5;
+                    AntiImpColumn.Width = value / 5;
+                    QFColumn.Width = 0;
+                }
+        
+        }
+
+        private void HornData_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            DataWidth = ListViewDataColumn.ActualWidth;
+        }
     }
 }
