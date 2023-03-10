@@ -154,12 +154,9 @@ namespace BodeGUI
             try
             {
                 IsProgLoading = true;
-                await Task.Run(() =>
-                {
-                    horn_Characteristic.TestCal();
-                    double resistance = horn_Characteristic.horn_data.Resistance;
-                    testBox.Text = resistance.ToString("000.0") + " Ω";
-                });
+                horn_Characteristic.TestCal();
+                double resistance = horn_Characteristic.horn_data.Resistance;
+                testBox.Text = resistance.ToString("000.0") + " Ω";
             }
             catch(Exception ex)
             {
