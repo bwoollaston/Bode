@@ -113,26 +113,37 @@ namespace BodeGUI
             horn_data.Resfreq = measurement.Results.CalculateFResQValues(false, true, FResQFormats.Magnitude).ResonanceFrequency;
             horn_data.Antifreq = measurement.Results.CalculateFResQValues(true, true, FResQFormats.Magnitude).ResonanceFrequency;
 
-            /* Use data from CalcResFreq to measure impedance at resonance as single measurement */
-            measurement.ConfigureSinglePoint(horn_data.Resfreq);
-            state = measurement.ExecuteMeasurement();
-            if (state != ExecutionState.Ok)
-            {
-                bode.ShutDown();
-                return;
-            }
-            horn_data.Res_impedance = measurement.Results.MagnitudeAt(0, MagnitudeUnit.Lin);
-            horn_data.QualityFactor = measurement.Results.QAt(0);
 
-            /* Use data from CalcResFreq to measure impedance at anti-resonance as single measurement */
-            measurement.ConfigureSinglePoint(horn_data.Antifreq);
-            state = measurement.ExecuteMeasurement();
-            if (state != ExecutionState.Ok)
+            try
             {
-                bode.ShutDown();
-                return;
+                /* Use data from CalcResFreq to measure impedance at resonance as single measurement */
+                measurement.ConfigureSinglePoint(horn_data.Resfreq);
+                state = measurement.ExecuteMeasurement();
+                if (state != ExecutionState.Ok)
+                {
+                    bode.ShutDown();
+                    return;
+                }
+                horn_data.Res_impedance = measurement.Results.MagnitudeAt(0, MagnitudeUnit.Lin);
+                horn_data.QualityFactor = measurement.Results.QAt(0);
+
+                /* Use data from CalcResFreq to measure impedance at anti-resonance as single measurement */
+                measurement.ConfigureSinglePoint(horn_data.Antifreq);
+                state = measurement.ExecuteMeasurement();
+                if (state != ExecutionState.Ok)
+                {
+                    bode.ShutDown();
+                    return;
+                }
+                horn_data.Anti_impedance = measurement.Results.MagnitudeAt(0, MagnitudeUnit.Lin);
             }
-            horn_data.Anti_impedance = measurement.Results.MagnitudeAt(0, MagnitudeUnit.Lin);
+            catch (Exception ex)
+            {
+                horn_data.Res_impedance = 0;
+                horn_data.QualityFactor = 0;
+                horn_data.Anti_impedance = 0;
+            }
+
 
             /* Round data for GUI output */
             horn_data.Resfreq = Math.Round(horn_data.Resfreq / 1000.0, 3, MidpointRounding.AwayFromZero);

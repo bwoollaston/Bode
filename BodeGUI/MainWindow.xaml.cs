@@ -345,7 +345,7 @@ namespace BodeGUI
             {
                 TaskBlock.Text = reader.ReaderOut["Calibrate"];
             }
-            else if (CalStatus["open"] && CalStatus["short"] && ConnectedStatus == true && CalStatus["load"] == false)
+            else if ((CalStatus["open"] && CalStatus["short"] && ConnectedStatus) == true && CalStatus["load"] == false)
             {
                 TaskBlock.Text = reader.ReaderOut["CalLoad"];
             }
