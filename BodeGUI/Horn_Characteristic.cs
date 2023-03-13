@@ -31,6 +31,7 @@ namespace BodeGUI
                 {"Connecting","Bode Connecting Please wait" },
                 {"ConnectFailed","Bode connection failed, make sure bode100 is connected to computer and Bode Analyzer Suite app is closed before connecting" },
                 {"Calibrate","Please run calibration procedure before making measurement" },
+                {"CalLoad", "Please run load calibration with 50Ω resistor" },
                 {"Open", "Performing Open Calibration" },
                 {"Short", "Perfroming Short Calibration" },
                 {"Load", "Performing Load Calibration" },
@@ -168,7 +169,7 @@ namespace BodeGUI
             ExecutionState state = measurement.Calibration.FullRange.ExecuteLoad();
         }
 
-        public void TestCal()
+        public double TestCal()
         {
 
             measurement.ConfigureSinglePoint(1000);
@@ -176,9 +177,9 @@ namespace BodeGUI
             if (state != ExecutionState.Ok)
             {
                 bode.ShutDown();
-                return;
+                return 0;
             }
-            horn_data.Resistance = measurement.Results.MagnitudeAt(0, MagnitudeUnit.Lin);
+            return measurement.Results.MagnitudeAt(0, MagnitudeUnit.Lin);
         }
 
         /* Disconnects Bode100 device from computer */

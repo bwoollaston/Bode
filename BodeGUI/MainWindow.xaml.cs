@@ -125,6 +125,7 @@ namespace BodeGUI
             try
             {
                 IsProgLoading = true;
+                TaskBlock.Text = reader.ReaderOut["Run"];
                 await Task.Run(() => horn_Characteristic.Sweep());
             }
             catch (Exception ex)
@@ -146,7 +147,6 @@ namespace BodeGUI
             HornData.ItemsSource = horn_list;
             index += 1;
             IsProgLoading=false;
-
         }
 
         /* When exiting window promts user before disconnecting the bode device */
@@ -179,14 +179,13 @@ namespace BodeGUI
         }
 
         /* When checking caliration selecting test button returns the magnitude of impeadance and presents on screen */
-        private async void click_testButton(object sender, RoutedEventArgs e)
+        private void click_testButton(object sender, RoutedEventArgs e)
         {
             try
             {
                 IsProgLoading = true;
-                horn_Characteristic.TestCal();
-                double resistance = horn_Characteristic.horn_data.Resistance;
-                testBox.Text = resistance.ToString("000.0") + " Ω";
+                double resistance = horn_Characteristic.TestCal();
+                testBox.Text = resistance.ToString("000.000") + " Ω";
             }
             catch(Exception ex)
             {
@@ -201,6 +200,7 @@ namespace BodeGUI
             try
             {
                 IsProgLoading = true;
+                TaskBlock.Text = reader.ReaderOut["Export"];
                 string fileName = await Task.Run(() => horn_Characteristic.ExportPath());
                 using (var writer = new StreamWriter(fileName))
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
@@ -221,6 +221,7 @@ namespace BodeGUI
             try
             {
                 IsProgLoading = true;
+                TaskBlock.Text = reader.ReaderOut["Open"];
                 await Task.Run(() => horn_Characteristic.OpenCal());
                 openBox.Background = new SolidColorBrush(Colors.Green);
                 CalStatus["open"] = true;
@@ -239,6 +240,7 @@ namespace BodeGUI
             try
             {
                 IsProgLoading = true;
+                TaskBlock.Text = reader.ReaderOut["Short"];
                 await Task.Run(() => horn_Characteristic.ShortCal());
                 shortBox.Background = new SolidColorBrush(Colors.Green);
                 CalStatus["short"] = true;
@@ -257,6 +259,7 @@ namespace BodeGUI
             try
             {
                 IsProgLoading = true;
+                TaskBlock.Text = reader.ReaderOut["Load"];
                 await Task.Run(() => horn_Characteristic.ShortCal());
                 loadBox.Background = new SolidColorBrush(Colors.Green);
                 CalStatus["load"] = true;
@@ -316,13 +319,7 @@ namespace BodeGUI
             }
             if (IsProgLoading == false)
             {
-                if (CalStatus["open"] && CalStatus["short"] && CalStatus["load"] && ConnectedStatus == true)
-                {
-                    TaskBlock.Text = reader.ReaderOut["Ready"];
-                } else if(CalStatus["open"] || CalStatus["short"] || CalStatus["load"] == false && ConnectedStatus)
-                {
-                    TaskBlock.Text = reader.ReaderOut["Calibrate"];
-                } 
+                UpdateComText();
                 connectProgress.Visibility = Visibility.Collapsed;
                 runButton.IsEnabled     = true;
                 ClearButton.IsEnabled   = true;
@@ -340,7 +337,19 @@ namespace BodeGUI
 
         private void UpdateComText()
         {
-            //TaskBlock.Text = "Enter Text Here";
+            if (CalStatus["open"] && CalStatus["short"] && CalStatus["load"] && ConnectedStatus == true)
+            {
+                TaskBlock.Text = reader.ReaderOut["Ready"];
+            }
+            else if (CalStatus["open"] || CalStatus["short"] || CalStatus["load"] == false && ConnectedStatus)
+            {
+                TaskBlock.Text = reader.ReaderOut["Calibrate"];
+            }
+            else if (CalStatus["open"] && CalStatus["short"] && ConnectedStatus == true && CalStatus["load"] == false)
+            {
+                TaskBlock.Text = reader.ReaderOut["CalLoad"];
+            }
+
         }
         private void LowFreqTextBox_LostFocus_1(object sender, RoutedEventArgs e)
         {
