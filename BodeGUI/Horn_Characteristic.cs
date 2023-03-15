@@ -81,10 +81,10 @@ namespace BodeGUI
         public bool IsQF_Checked { get; set; }
         public Horn_Characteristic()
         {
-            sweep_PTS = 201;
-            sweep_LOW = 180000;
-            sweep_HIGH = 190000;
-            Bandwidth = 300000;
+            sweep_PTS = 201;                        //default number of points per sweep
+            sweep_LOW = 180000;                     //Defalut low sweep range
+            sweep_HIGH = 190000;                    //Default high sweep range
+            Bandwidth = 300000;                     //Reciever bandwidth in mHz
             IsQF_Checked = false;
         }
 
