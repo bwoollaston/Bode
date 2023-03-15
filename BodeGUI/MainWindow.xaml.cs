@@ -279,9 +279,21 @@ namespace BodeGUI
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            while(HornData.SelectedItems.Count > 0)
+
+            try
             {
-                horn_list.Remove((Data)HornData.SelectedItem);
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to clear data?", "Application Shutdown Sample", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)                     //check to make sure the user really wants to clear data
+                {
+                    while (HornData.SelectedItems.Count > 0)
+                    {
+                        horn_list.Remove((Data)HornData.SelectedItem);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Clear Failed", "Exception Sample", MessageBoxButton.OK);
             }
         }
 
